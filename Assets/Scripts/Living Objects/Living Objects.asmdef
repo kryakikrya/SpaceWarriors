@@ -1,0 +1,16 @@
+{
+    "name": "LivingObjects",
+    "rootNamespace": "",
+    "references": [
+        "GUID:85a01f7413b783040b0f442706634395"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
