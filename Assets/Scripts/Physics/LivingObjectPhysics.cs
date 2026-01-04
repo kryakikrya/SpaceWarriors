@@ -78,8 +78,6 @@ public class LivingObjectPhysics : MonoBehaviour
 
         if (colliderDistance.isOverlapped)
         {
-            Debug.Log(1);
-
             collision.otherRigidbody.position += colliderDistance.normal * colliderDistance.distance;
         }
     }
