@@ -43,7 +43,10 @@ public class LivingObjectPhysics : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) => CheckOverlap(collision);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CheckOverlap(collision);
+    }
 
     private void OnCollisionStay2D(Collision2D collision) => CheckOverlap(collision);
 
@@ -54,6 +57,13 @@ public class LivingObjectPhysics : MonoBehaviour
     public void AddForce(Vector2 direction, float speed)
     {
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
+    }
+
+    private void Bounce(Vector2 hit, LivingObjectPhysics other)
+    {
+        other._velocity += _velocity;
+
+        _velocity = Vector2.Reflect(_velocity, hit) * other._mass / _mass / 2;
     }
 
     private void FixedUpdate()
@@ -121,7 +131,10 @@ public class LivingObjectPhysics : MonoBehaviour
                 {
                     currentDistance = 0;
                 }
+
                 direction -= hit.normal * Vector2.Dot(direction, hit.normal);
+
+                Bounce(hit.normal, hit.rigidbody.GetComponent<LivingObjectPhysics>());
             }
             else
             {
