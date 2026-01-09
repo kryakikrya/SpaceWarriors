@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a011900c983013245af2dbdfe4a4b34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bounceReduction: 2
+  _bounceReduction: 1
   InvulnerabilityLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -501,7 +501,7 @@ MonoBehaviour:
     maxNormalAngle: 359.9999
   _minMovement: 0.01
   _hitOffset: 0.003
-  _maxSpeed: 2
+  _maxSpeed: 3
   _mass: 30
   _inertionModifier: 0
 --- !u!50 &924346448
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd419f923f882a499e249f72405bf60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 4
 --- !u!114 &1390007844
 MonoBehaviour:
   m_ObjectHideFlags: 0
