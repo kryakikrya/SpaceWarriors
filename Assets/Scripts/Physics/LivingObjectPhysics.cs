@@ -70,14 +70,16 @@ public class LivingObjectPhysics : MonoBehaviour
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
 
-    public void Push(Vector2 velocity, float otherMass)
+    public void Push(Vector2 hit, Vector2 velocity, float otherMass)
     {
-        _velocity += velocity * otherMass / _bounceReduction / (_mass / otherMass);
+        _velocity += hit * velocity.magnitude / _bounceReduction / (_mass / otherMass);
+
+        print(_velocity.magnitude);
     }
 
     private void Bounce(Vector2 hit, LivingObjectPhysics other)
     {
-        other.Push(_velocity, _mass);
+        other.Push(hit, _velocity, _mass);
 
         _velocity = Vector2.Reflect(_velocity, hit) / _bounceReduction;
     }

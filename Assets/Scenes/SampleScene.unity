@@ -499,10 +499,10 @@ MonoBehaviour:
     maxDepth: Infinity
     minNormalAngle: 0
     maxNormalAngle: 359.9999
-  _minMovement: 0.03
-  _hitOffset: 0.03
+  _minMovement: 0.01
+  _hitOffset: 0.003
   _maxSpeed: 2
-  _mass: 50
+  _mass: 30
   _inertionModifier: 0
 --- !u!50 &924346448
 Rigidbody2D:
@@ -693,9 +693,9 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 359.9999
   _minMovement: 0.03
-  _hitOffset: 0.03
+  _hitOffset: 0.003
   _maxSpeed: 3
-  _mass: 13
+  _mass: 20
   _inertionModifier: 3
 --- !u!114 &1390007846
 MonoBehaviour:
