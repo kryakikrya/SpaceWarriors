@@ -5,6 +5,8 @@ using UnityEngine.Pool;
 [RequireComponent (typeof(Rigidbody2D))]
 public class LivingObjectPhysics : MonoBehaviour
 {
+    [SerializeField] private float _bounceReduction = 2;
+
     [SerializeField] private LayerMask InvulnerabilityLayer;
     [SerializeField] private LayerMask Defaultlayer;
 
@@ -68,11 +70,16 @@ public class LivingObjectPhysics : MonoBehaviour
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
 
+    public void AddBounce(Vector2 velocity, float otherMass)
+    {
+        _velocity += velocity * otherMass / _bounceReduction / _mass;
+    }
+
     private void Bounce(Vector2 hit, LivingObjectPhysics other)
     {
-        other._velocity += _velocity;
+        other.AddBounce(_velocity, _mass);
 
-        _velocity = Vector2.Reflect(_velocity, hit) * other._mass / _mass / 2;
+        _velocity = Vector2.Reflect(_velocity, hit) / _mass;
     }
 
     private void FixedUpdate()
