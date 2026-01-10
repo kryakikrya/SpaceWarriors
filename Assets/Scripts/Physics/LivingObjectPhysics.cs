@@ -8,11 +8,11 @@ public class LivingObjectPhysics : MonoBehaviour
     [SerializeField] private float _bounceReduction = 2;
 
     [SerializeField] private LayerMask InvulnerabilityLayer;
-    [SerializeField] private LayerMask Defaultlayer;
+    [SerializeField] private LayerMask DefaultLayer;
 
     private const int MaxChangesInOneMovement = 3;
 
-    [SerializeField] private ContactFilter2D _collisionFilter = new ContactFilter2D().NoFilter();
+    private ContactFilter2D _collisionFilter = new ContactFilter2D().NoFilter();
     private ContactFilter2D _defaultFilter;
 
     [SerializeField] private float _minMovement = 0.03f;
@@ -38,11 +38,6 @@ public class LivingObjectPhysics : MonoBehaviour
         _hits = ListPool<RaycastHit2D>.Get();
 
         _rb.useFullKinematicContacts = true;
-
-        _collisionFilter.useLayerMask = true;
-        _collisionFilter.layerMask &= ~(1 << InvulnerabilityLayer);
-
-        _defaultFilter = _collisionFilter;
     }
 
     private void OnDestroy()
@@ -167,23 +162,11 @@ public class LivingObjectPhysics : MonoBehaviour
 
     #endregion
 
-    #region Invulnerability
+    #region Filtering
 
-    public void EnableInvulnerability()
+    public void ChangeFilter(ContactFilter2D filter)
     {
-        gameObject.layer = InvulnerabilityLayer;
-
-        _collisionFilter = new ContactFilter2D()
-        {
-            useLayerMask = true
-        };
-    }
-
-    public void DisableInvulnerability()
-    {
-        gameObject.layer = Defaultlayer;
-
-        _collisionFilter = _defaultFilter;
+        _collisionFilter = filter;
     }
 
     #endregion
