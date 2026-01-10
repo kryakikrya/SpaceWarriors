@@ -29,6 +29,8 @@ public class LivingObjectPhysics : MonoBehaviour
     private Rigidbody2D _rb;
     private List<RaycastHit2D> _hits = null;
 
+    public Vector2 CurrentVelocity => _velocity;
+
     #region Initialization
     private void Awake()
     {
