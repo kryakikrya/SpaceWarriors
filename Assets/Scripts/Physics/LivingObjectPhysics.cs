@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using Zenject;
 
 [RequireComponent (typeof(Rigidbody2D))]
 public class LivingObjectPhysics : MonoBehaviour
 {
     [SerializeField] private float _bounceReduction = 2;
 
-    [SerializeField] private LayerMask InvulnerabilityLayer;
-    [SerializeField] private LayerMask DefaultLayer;
+    private LayerMask _invulnerabilityLayer;
+    private LayerMask _defaultLayer;
 
     private const int MaxChangesInOneMovement = 3;
 
     private ContactFilter2D _collisionFilter = new ContactFilter2D().NoFilter();
-    private ContactFilter2D _defaultFilter;
 
     [SerializeField] private float _minMovement = 0.03f;
 
@@ -32,6 +32,14 @@ public class LivingObjectPhysics : MonoBehaviour
     public Vector2 CurrentVelocity => _velocity;
 
     #region Initialization
+
+    [Inject]
+    private void Construct(PhysicalLayers physicalLayers)
+    {
+        _invulnerabilityLayer = physicalLayers.InvulnerabilityLayer;
+        _defaultLayer = physicalLayers.DefaultLayer;
+    }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -40,6 +48,14 @@ public class LivingObjectPhysics : MonoBehaviour
         _hits = ListPool<RaycastHit2D>.Get();
 
         _rb.useFullKinematicContacts = true;
+    }
+
+    private void Start()
+    {
+        if (_collisionFilter.useLayerMask == false)
+        {
+            Invulnerability inv = new Invulnerability();
+        }
     }
 
     private void OnDestroy()
@@ -51,10 +67,7 @@ public class LivingObjectPhysics : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        CheckOverlap(collision);
-    }
+    private void OnCollisionEnter2D(Collision2D collision) => CheckOverlap(collision);
 
     private void OnCollisionStay2D(Collision2D collision) => CheckOverlap(collision);
 
@@ -67,18 +80,17 @@ public class LivingObjectPhysics : MonoBehaviour
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
 
-    public void Push(Vector2 hit, Vector2 velocity, float otherMass)
-    {
-        _velocity += hit * velocity.magnitude / _bounceReduction / (_mass / otherMass);
-
-        print(_velocity.magnitude);
-    }
-
     private void Bounce(Vector2 hit, LivingObjectPhysics other)
     {
-        other.Push(hit, _velocity, _mass);
+        Vector2 otherVelocity = -hit / other._mass * _mass / other._bounceReduction * _velocity.magnitude;
 
-        _velocity = Vector2.Reflect(_velocity, hit) / _bounceReduction;
+        otherVelocity = Vector2.ClampMagnitude(otherVelocity, Mathf.Log(otherVelocity.magnitude, 2));
+
+        other._velocity += otherVelocity;
+
+        _velocity = Vector2.Reflect(_velocity, hit) * other._mass / _mass / _bounceReduction;
+
+        _velocity = Vector2.ClampMagnitude(_velocity, Mathf.Log(_velocity.magnitude, 2));
     }
 
     private void FixedUpdate()
@@ -89,7 +101,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
         _velocity *= Mathf.Exp(-_inertionModifier * delta);
 
-        Move(_velocity);
+        Move();
     }
 
     private void CheckOverlap(Collision2D collision)
@@ -107,15 +119,17 @@ public class LivingObjectPhysics : MonoBehaviour
         }
     }
 
-    private void Move(Vector2 movement)
+    private void Move()
     {
-        if (movement.sqrMagnitude <= Mathf.Epsilon)
+        _velocity = Vector2.ClampMagnitude(_velocity, _maxSpeed);
+
+        if (_velocity.sqrMagnitude <= Mathf.Epsilon)
         {
             return;
         }
 
-        var vectorDirection = movement.normalized;
-        var vectorLength = movement.magnitude;
+        var vectorDirection = _velocity.normalized;
+        var vectorLength = _velocity.magnitude;
 
         CompleteTheDistance(MaxChangesInOneMovement, vectorLength, vectorDirection);
     }
@@ -149,7 +163,10 @@ public class LivingObjectPhysics : MonoBehaviour
 
                 direction -= hit.normal * Vector2.Dot(direction, hit.normal);
 
-                Bounce(hit.normal, hit.rigidbody.GetComponent<LivingObjectPhysics>());
+                if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
+                {
+                    Bounce(hit.normal.normalized, physics);
+                }
             }
             else
             {

@@ -1,3 +1,16 @@
 {
-	"name": "World"
+    "name": "World",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7e5d8f1c4f398854c863f1dd888aec3f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

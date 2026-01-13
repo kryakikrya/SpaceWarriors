@@ -3,6 +3,7 @@ using UnityEngine;
 public class AsteroidMovement : MonoBehaviour
 {
     [SerializeField] private float _speed = 1f;
+    [SerializeField] private float _minSpeed = 0.1f;
 
     private LivingObjectPhysics _physics;
 
@@ -21,7 +22,7 @@ public class AsteroidMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_physics.CurrentVelocity.magnitude < _speed)
+        if (_physics.CurrentVelocity.magnitude < _minSpeed)
         {
             _physics.AddForce(_physics.CurrentVelocity, _speed / _physics.CurrentVelocity.magnitude);
         }
