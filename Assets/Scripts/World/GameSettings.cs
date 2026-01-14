@@ -5,5 +5,5 @@ public class GameSettings : ScriptableObject
 {
     public float MapSize = 5;
 
-    public float CameraSize => MapSize / 2;
+    public float CameraSize = 2.5f;
 }

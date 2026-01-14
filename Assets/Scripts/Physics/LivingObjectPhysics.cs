@@ -50,14 +50,6 @@ public class LivingObjectPhysics : MonoBehaviour
         _rb.useFullKinematicContacts = true;
     }
 
-    private void Start()
-    {
-        if (_collisionFilter.useLayerMask == false)
-        {
-            Invulnerability inv = new Invulnerability();
-        }
-    }
-
     private void OnDestroy()
     {
         if ( _hits != null )

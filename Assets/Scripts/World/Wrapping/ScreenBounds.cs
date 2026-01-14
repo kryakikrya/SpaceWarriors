@@ -8,7 +8,7 @@ public class ScreenBounds : MonoBehaviour
 {
     [SerializeField] private Camera _mainCamera;
 
-    [SerializeField] private float _teleportOffset = 0.2f;
+    [SerializeField] private float _teleportOffset = 0.995f;
 
     private BoxCollider2D _boxCollider;
 
@@ -44,15 +44,15 @@ public class ScreenBounds : MonoBehaviour
 
         if (result.Item1 && result.Item2)
         {
-            collision.transform.position = new Vector2(position.x * -1, position.y * -1);
+            collision.transform.position = new Vector2(position.x * -_teleportOffset, position.y * -_teleportOffset);
         }
         else if (result.Item1)
         {
-            collision.transform.position = new Vector2(position.x * -1, position.y);
+            collision.transform.position = new Vector2(position.x * -_teleportOffset, position.y);
         }
         else if (result.Item2)
         {
-            collision.transform.position = new Vector2(position.x, position.y * -1);
+            collision.transform.position = new Vector2(position.x, position.y * -_teleportOffset);
         }
     }
 

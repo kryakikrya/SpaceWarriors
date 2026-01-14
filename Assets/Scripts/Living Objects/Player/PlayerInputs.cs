@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(LivingObjectPhysics))]
-public class PlayerController : MonoBehaviour
+public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] private float _speed;
 

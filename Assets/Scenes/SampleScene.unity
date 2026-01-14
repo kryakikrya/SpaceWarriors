@@ -597,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounceReduction: 2
-  _minMovement: 0.01
+  _minMovement: 0.001
   _hitOffset: 0.01
   _maxSpeed: 0.3
   _mass: 30

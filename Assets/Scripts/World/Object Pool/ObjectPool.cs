@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class ObjectPool<T> : IObjectPool<T> where T : IPoolableObject
+public class ObjectPool<T> : IObjectPool<T> where T : IPoolableObject<IObjectSettings>
 {
     public List<T> AvailableObjects { get; private set; }
 
