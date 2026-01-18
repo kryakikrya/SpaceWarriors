@@ -1,10 +1,9 @@
 using System.Numerics;
 
+[System.Serializable]
 public class BulletSettings : IObjectSettings
 {
-    public Vector2 Direction;
-
-    public Vector2 Speed;
+    public float Speed;
 
     public Vector2 Damage;
 }

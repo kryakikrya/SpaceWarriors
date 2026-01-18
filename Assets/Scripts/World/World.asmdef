@@ -2,7 +2,8 @@
     "name": "World",
     "rootNamespace": "",
     "references": [
-        "GUID:7e5d8f1c4f398854c863f1dd888aec3f"
+        "GUID:7e5d8f1c4f398854c863f1dd888aec3f",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

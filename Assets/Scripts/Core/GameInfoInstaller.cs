@@ -16,5 +16,7 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<PhysicalLayers>().FromInstance(physicalLayers).AsSingle();
 
         Container.Bind<GameSettings>().FromInstance(_settings).AsSingle();
+
+
     }
 }

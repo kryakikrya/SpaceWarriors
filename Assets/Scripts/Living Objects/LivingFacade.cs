@@ -9,6 +9,10 @@ public class LivingFacade : MonoBehaviour
 
     protected PhysicalLayers _physicalLayers;
 
+    protected Health _health;
+
+    protected DamageApplier _damageApplier;
+
     [Inject]
     private void Construct(Invulnerability invulnerability, PhysicalLayers layers)
     {

@@ -155,10 +155,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
                 direction -= hit.normal * Vector2.Dot(direction, hit.normal);
 
-                if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
-                {
-                    Bounce(hit.normal.normalized, physics);
-                }
+                Hit(hit);
             }
             else
             {
@@ -169,6 +166,14 @@ public class LivingObjectPhysics : MonoBehaviour
         }
 
         _rb.MovePosition(position);
+    }
+
+    public virtual void Hit(RaycastHit2D hit)
+    {
+        if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
+        {
+            Bounce(hit.normal.normalized, physics);
+        }
     }
 
     #endregion

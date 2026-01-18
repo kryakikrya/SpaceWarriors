@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Default Map
   m_EditorClassIdentifier: 
   MapSize: 14
+  CameraSize: 6.7
