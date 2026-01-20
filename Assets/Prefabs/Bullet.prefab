@@ -44,8 +44,8 @@ GameObject:
   - component: {fileID: 2244617131652325317}
   - component: {fileID: 5580972044902280285}
   - component: {fileID: 883877094259412237}
-  - component: {fileID: 8059807070707220797}
-  - component: {fileID: 4001120590098586766}
+  - component: {fileID: 8145764732560072300}
+  - component: {fileID: 5758290930420482207}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -77,9 +77,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 930747575576713875}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -143,25 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f091d7a390642474c8720b8c6ca9a658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8059807070707220797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930747575576713875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3824d7ba5eebd949a53f23af28f2816, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bounceReduction: 4
-  _minMovement: 0.003
-  _hitOffset: 0.003
-  _maxSpeed: 0.5
-  _mass: 0.001
-  _inertionModifier: 0
---- !u!114 &4001120590098586766
+--- !u!114 &8145764732560072300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,6 +155,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcd5166b30be8440b19f95b0372a35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5758290930420482207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 930747575576713875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3824d7ba5eebd949a53f23af28f2816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bounceReduction: 2
+  _minMovement: 0.03
+  _hitOffset: 0.03
+  _maxSpeed: 5
+  _mass: 1
+  _inertionModifier: 5
 --- !u!1 &4346507722890556512
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LivingObjectPhysics))]
 public class PlayerInputs : MonoBehaviour
 {
     [SerializeField] private float _speed;
+
+    public event Action Shooting;
 
     private LivingObjectPhysics _physics;
 
@@ -18,5 +21,10 @@ public class PlayerInputs : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         _physics.AddForce(new Vector2(horizontal, vertical), _speed);
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Shooting?.Invoke();
+        }
     }
 }

@@ -13,8 +13,9 @@ public class PoolableObjectFactory : IFactory<PoolableObject>
 
     public virtual void Create(PoolableObject poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction)
     {
-        _container.InstantiatePrefab(poolableObject, spawnPoint, Quaternion.Euler(direction), null);
-        poolableObject.InitializeInfo(GetSettings(jsonName));
+        GameObject obj = _container.InstantiatePrefab(poolableObject.gameObject, spawnPoint, Quaternion.Euler(direction), null);
+
+        obj.GetComponent<PoolableObject>().InitializeInfo(GetSettings(jsonName));
     }
 
     public virtual IObjectSettings GetSettings(string jsonName)

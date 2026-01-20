@@ -23,8 +23,8 @@ public class LivingObjectPhysics : MonoBehaviour
     [SerializeField] private float _mass = 1f;
     [SerializeField] private float _inertionModifier = 5f;
 
-    private Vector2 _frameMovementVector = Vector2.zero;
-    private Vector2 _velocity = Vector2.zero;
+    protected Vector2 _frameMovementVector = Vector2.zero;
+    protected Vector2 _velocity = Vector2.zero;
 
     private Rigidbody2D _rb;
     private List<RaycastHit2D> _hits = null;
@@ -67,7 +67,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
     #region Movement Logic
 
-    public void AddForce(Vector2 direction, float speed)
+    public virtual void AddForce(Vector2 direction, float speed)
     {
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
@@ -86,6 +86,11 @@ public class LivingObjectPhysics : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        Perform();
+    }
+
+    public virtual void Perform()
     {
         float delta = Time.fixedDeltaTime;
 
@@ -111,7 +116,7 @@ public class LivingObjectPhysics : MonoBehaviour
         }
     }
 
-    private void Move()
+    protected void Move()
     {
         _velocity = Vector2.ClampMagnitude(_velocity, _maxSpeed);
 
