@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(BulletPhysics))]
-public class BulletFacade : PoolableFacade
+public class BulletFacade : LivingFacade
 {
     private const float Offset = -90;
 
@@ -30,7 +30,16 @@ public class BulletFacade : PoolableFacade
             y = Mathf.Sin(z)
         };
 
+        print(_settings.Speed);
+
         movement.StartMovement(_physics, angle, _settings.Speed);
+    }
+
+    private void Awake()
+    {
+        _health = new BulletHealth();
+
+        _health.InitializeHealth(_maxHealth);
     }
 
     public override void Death()

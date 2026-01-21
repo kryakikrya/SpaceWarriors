@@ -37,6 +37,11 @@ public class LivingFacade : MonoBehaviour
 
     private void OnEnable()
     {
+        if (_physics == null)
+        {
+            _physics = GetComponent<LivingObjectPhysics>();
+        }
+
         _physics.Colliding += DamageEnemy;
     }
 

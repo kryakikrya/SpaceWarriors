@@ -22,7 +22,9 @@ public class PlayerFacade : LivingFacade
     {
         _inputs.Shooting += Shoot;
 
-        _health = new PlayerHealth(_maxHealth);
+        _health = new PlayerHealth();
+
+        _health.InitializeHealth(_maxHealth);
     }
 
     public void Shoot()

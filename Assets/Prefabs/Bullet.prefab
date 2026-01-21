@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Offset: 0
+  _maxHealth: 1
 --- !u!114 &8145764732560072300
 MonoBehaviour:
   m_ObjectHideFlags: 0
