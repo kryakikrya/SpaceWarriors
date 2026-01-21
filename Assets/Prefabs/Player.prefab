@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 7588392182695867671}
   - component: {fileID: 2061717021790033043}
   - component: {fileID: 2730602527678385582}
-  - component: {fileID: 7849156922988761312}
+  - component: {fileID: 2051933846649171911}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -379,7 +379,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &7849156922988761312
+--- !u!114 &2051933846649171911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -391,5 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca04165f9f183f4d86622976122be4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: 0.1
+  _maxHealth: 3
   _inputs: {fileID: 7588392182695867671}
   _firePos: {fileID: 976709526432192732}

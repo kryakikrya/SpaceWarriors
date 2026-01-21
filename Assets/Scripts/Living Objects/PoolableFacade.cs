@@ -1,9 +1,4 @@
-public class PoolableFacade<T> : LivingFacade<T> where T : Health
+public class PoolableFacade : LivingFacade
 {
-    protected PoolableObject _poolableObject;
 
-    public override void Death()
-    {
-        
-    }
 }

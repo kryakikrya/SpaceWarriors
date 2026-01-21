@@ -1,4 +1,4 @@
-public class AsteroidsFacade : LivingFacade<AsteroidsHealth>
+public class AsteroidsFacade : LivingFacade
 {
 
 }

@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerFacade : LivingFacade<PlayerHealth>
+public class PlayerFacade : LivingFacade
 {
     [SerializeField] private PlayerInputs _inputs;
 
