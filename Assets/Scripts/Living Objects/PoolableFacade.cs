@@ -1,4 +1,4 @@
-public abstract class PoolableFacade : LivingFacade
+public class PoolableFacade<T> : LivingFacade<T> where T : Health
 {
     protected PoolableObject _poolableObject;
 

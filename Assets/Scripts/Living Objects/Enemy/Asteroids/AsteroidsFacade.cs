@@ -1,7 +1,4 @@
-public class AsteroidsFacade : LivingFacade 
+public class AsteroidsFacade : LivingFacade<AsteroidsHealth>
 {
-    private void Awake()
-    {
-        _health = new AsteroidsHealth();
-    }
+
 }

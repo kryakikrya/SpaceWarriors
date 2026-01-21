@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public abstract class LivingFacade : MonoBehaviour
+public class LivingFacade<T> : MonoBehaviour where T : Health
 {
     [SerializeField] private float Offset = 0.1f;
 
@@ -13,11 +13,11 @@ public abstract class LivingFacade : MonoBehaviour
 
     protected PhysicalLayers _physicalLayers;
 
-    protected Health _health;
+    protected T _health;
 
     protected DamageApplier _damageApplier;
 
-    public Health Health => _health;
+    public T Health => _health;
 
     [Inject]
     private void Construct(Invulnerability invulnerability, PhysicalLayers layers)
@@ -35,18 +35,8 @@ public abstract class LivingFacade : MonoBehaviour
         DisableInvulnerability();
     }
 
-    private void Start()
-    {
-        _health.InitializeHealth(_maxHealth);
-    }
-
     private void OnEnable()
     {
-        if (_physics == null)
-        {
-            _physics = GetComponent<LivingObjectPhysics>();
-        }
-
         _physics.Colliding += DamageEnemy;
     }
 
@@ -57,7 +47,7 @@ public abstract class LivingFacade : MonoBehaviour
 
     private void DamageEnemy(LivingObjectPhysics physics)
     {
-        _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade>().Health);
+        _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade<T>>().Health);
     }
 
     public void CheckBoundsWracks()
