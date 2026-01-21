@@ -1,11 +1,7 @@
+using UnityEngine;
 public abstract class Health
 {
     private int _health = 1;
-
-    public Health(int health)
-    {
-        _health = health;
-    }
 
     public void InitializeHealth(int health)
     {
@@ -20,6 +16,8 @@ public abstract class Health
         {
             Death();
         }
+
+        Debug.Log(_health);
     }
 
     public abstract void Death();

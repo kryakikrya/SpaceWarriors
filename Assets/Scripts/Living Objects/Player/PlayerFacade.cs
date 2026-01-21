@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerFacade : LivingFacade<PlayerHealth>
+public class PlayerFacade : LivingFacade
 {
     [SerializeField] private PlayerInputs _inputs;
 
@@ -18,11 +18,14 @@ public class PlayerFacade : LivingFacade<PlayerHealth>
         pool.InitializeFactory(factory);
     }
 
+    private void Awake()
+    {
+        _health = new PlayerHealth();
+    }
+
     private void Start()
     {
         _inputs.Shooting += Shoot;
-
-        _health = new PlayerHealth(_maxHealth);
     }
 
     public void Shoot()

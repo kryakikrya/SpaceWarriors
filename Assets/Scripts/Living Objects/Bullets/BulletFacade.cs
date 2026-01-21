@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(BulletPhysics))]
-public class BulletFacade : PoolableFacade<BulletHealth>
+public class BulletFacade : PoolableFacade
 {
     private const float Offset = -90;
 
