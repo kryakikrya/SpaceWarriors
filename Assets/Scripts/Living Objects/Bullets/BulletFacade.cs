@@ -1,13 +1,15 @@
 using UnityEngine;
 
 [RequireComponent (typeof(BulletPhysics))]
-public class BulletFacade : LivingFacade
+public class BulletFacade : PoolableFacade<BulletHealth>
 {
     private const float Offset = -90;
 
     private BulletMovement movement;
 
     private BulletSettings _settings;
+
+    private PoolableBullet _poolMember;
 
     public void InitializeInfo(BulletSettings settings)
     {
@@ -18,6 +20,8 @@ public class BulletFacade : LivingFacade
     {
         movement = new BulletMovement();
 
+        _poolMember = GetComponent<PoolableBullet>();
+
         float z = (transform.eulerAngles.z + Offset) * Mathf.Deg2Rad;
 
         Vector2 angle = new Vector2
@@ -27,5 +31,12 @@ public class BulletFacade : LivingFacade
         };
 
         movement.StartMovement(_physics, angle, _settings.Speed);
+    }
+
+    public override void Death()
+    {
+        base.Death();
+
+        _poolMember.Death();
     }
 }

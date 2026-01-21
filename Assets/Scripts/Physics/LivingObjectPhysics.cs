@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -28,6 +29,8 @@ public class LivingObjectPhysics : MonoBehaviour
 
     private Rigidbody2D _rb;
     private List<RaycastHit2D> _hits = null;
+
+    public Action<LivingObjectPhysics> Colliding;
 
     public Vector2 CurrentVelocity => _velocity;
 
@@ -178,6 +181,8 @@ public class LivingObjectPhysics : MonoBehaviour
         if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
         {
             Bounce(hit.normal.normalized, physics);
+
+            Colliding?.Invoke(physics);
         }
     }
 

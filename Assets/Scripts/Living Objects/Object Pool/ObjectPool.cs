@@ -1,10 +1,18 @@
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ObjectPool<T> : IObjectPool<T> where T : IPoolableObject<IObjectSettings>
+public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 {
-    public List<T> AvailableObjects { get; private set; }
+    protected PoolableObjectFactory _factory;
 
-    public List<T> UnavailableObjects { get; private set; }
+    public List<T> AvailableObjects { get; private set; } = new List<T>();
+
+    public List<T> UnavailableObjects { get; private set; } = new List<T>();
+
+    public void InitializeFactory(PoolableObjectFactory factory)
+    {
+        _factory = factory;
+    }
 
     public void MakeObjectUnavailable(T obj)
     {
@@ -12,14 +20,27 @@ public class ObjectPool<T> : IObjectPool<T> where T : IPoolableObject<IObjectSet
         UnavailableObjects.Add(obj);
     }
 
-    public T GetAvailableObject()
+    public T GetAvailableObject(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction)
     {
-        T objectToReturn = AvailableObjects[0];
+        PoolableObject objectToReturn;
 
-        AvailableObjects.RemoveAt(0);
+        if (AvailableObjects.Count == 0)
+        {
+            objectToReturn = _factory.Create(poolableObject, jsonName, spawnPoint, direction);
 
-        UnavailableObjects.Add(objectToReturn);
+            Debug.Log($"Создан новый элемент пула {objectToReturn.name}. Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
+        }
+        else
+        {
+            objectToReturn = AvailableObjects[0];
 
-        return objectToReturn;
+            AvailableObjects.RemoveAt(0);
+
+            Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}. Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
+        }
+
+        UnavailableObjects.Add((T)objectToReturn);
+
+        return (T)objectToReturn;
     }
 }

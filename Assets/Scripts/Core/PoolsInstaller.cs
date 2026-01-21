@@ -13,5 +13,7 @@ public class PoolsInstaller : MonoInstaller
         Container.Bind<PoolableObjectFactory>().AsSingle();
 
         Container.Bind<PoolableBullet>().FromInstance(_bullet).AsSingle();
+
+        Container.Bind<ObjectPool<PoolableBullet>>().AsSingle();
     }
 }

@@ -2,6 +2,11 @@ public abstract class Health
 {
     private int _health = 1;
 
+    public Health(int health)
+    {
+        _health = health;
+    }
+
     public void InitializeHealth(int health)
     {
         _health = health;

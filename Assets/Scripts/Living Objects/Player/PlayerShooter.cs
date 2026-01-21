@@ -4,17 +4,17 @@ public class PlayerShooter
 {
     private const string JsonName = "BulletConfig.json";
 
-    private PoolableObjectFactory _bulletFactory;
-    private PoolableObject _bullet;
+    private ObjectPool<PoolableBullet> _pool;
+    private PoolableBullet _bullet;
 
-    public void Initialize(PoolableObjectFactory bulletFactory, PoolableObject bullet)
+    public void Initialize(ObjectPool<PoolableBullet> pool, PoolableBullet bullet)
     {
-        _bulletFactory = bulletFactory;
+        _pool = pool;
         _bullet = bullet;
     }
 
     public void Shoot(Transform firePosition, Vector3 playerRotation)
     {
-        _bulletFactory.Create(_bullet, JsonName, firePosition.position, playerRotation);
+        _pool.GetAvailableObject(_bullet, JsonName, firePosition.position, playerRotation);
     }
 }

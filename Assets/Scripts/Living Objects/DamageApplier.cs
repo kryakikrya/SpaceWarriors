@@ -1,9 +1,14 @@
-using UnityEngine;
-
 public class DamageApplier
 {
-    public void ApplyDamage(LivingFacade facade, int damage)
-    {
+    private int _damage;
 
+    public DamageApplier(int damage)
+    {
+        _damage = damage;
+    }
+
+    public void ApplyDamage(Health health)
+    {
+        health.TakeDamage(_damage);
     }
 }

@@ -14,13 +14,5 @@ public class BulletPhysics : LivingObjectPhysics
         _velocity = _permanentVelocity;
         Move();
     }
-
-    public override void Hit(RaycastHit2D hit)
-    {
-        if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
-        {
-            //take damage
-        }
-    }
 }
 
