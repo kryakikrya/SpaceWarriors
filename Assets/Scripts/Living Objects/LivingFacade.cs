@@ -40,6 +40,10 @@ public class LivingFacade : MonoBehaviour
         if (_physics == null)
         {
             _physics = GetComponent<LivingObjectPhysics>();
+
+            _damageApplier = new DamageApplier(1);
+
+            DisableInvulnerability();
         }
 
         _physics.Colliding += DamageEnemy;
@@ -52,6 +56,8 @@ public class LivingFacade : MonoBehaviour
 
     private void DamageEnemy(LivingObjectPhysics physics)
     {
+        print(_damageApplier);
+        print(physics.gameObject.GetComponent<LivingFacade>().Health);
         _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade>().Health);
     }
 
