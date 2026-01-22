@@ -36,8 +36,6 @@ public class ScreenBounds : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        print(1);
-
         var position = collision.transform.position;
 
         var result = OutOfBounds(position);

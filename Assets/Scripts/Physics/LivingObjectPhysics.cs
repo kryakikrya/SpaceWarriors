@@ -9,9 +9,6 @@ public class LivingObjectPhysics : MonoBehaviour
 {
     [SerializeField] private float _bounceReduction = 2;
 
-    private LayerMask _invulnerabilityLayer;
-    private LayerMask _defaultLayer;
-
     private const int MaxChangesInOneMovement = 3;
 
     private ContactFilter2D _collisionFilter = new ContactFilter2D().NoFilter();
@@ -36,14 +33,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
     #region Initialization
 
-    [Inject]
-    private void Construct(PhysicalLayers physicalLayers)
-    {
-        _invulnerabilityLayer = physicalLayers.InvulnerabilityLayer;
-        _defaultLayer = physicalLayers.DefaultLayer;
-    }
-
-    private void Awake()
+    private void Awake ()
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.bodyType = RigidbodyType2D.Kinematic;
@@ -53,7 +43,7 @@ public class LivingObjectPhysics : MonoBehaviour
         _rb.useFullKinematicContacts = true;
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         if ( _hits != null )
         {
