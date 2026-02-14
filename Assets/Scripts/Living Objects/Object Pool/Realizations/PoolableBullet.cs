@@ -16,6 +16,9 @@ public class PoolableBullet : PoolableObject
 
     public override void Death()
     {
+        Debug.Log("POOLABLE BULLET DEATH");
+
         _pool.MakeObjectUnavailable(this);
+        gameObject.SetActive(false);
     }
 }

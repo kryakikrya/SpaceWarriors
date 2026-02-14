@@ -1,0 +1,6 @@
+{
+  "MinSpeed": 0.25,
+  "MaxSpeed": 0.75,
+  "MinSize": 0.5,
+  "MaxSize": 2
+}

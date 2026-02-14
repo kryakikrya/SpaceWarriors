@@ -56,9 +56,8 @@ public class LivingFacade : MonoBehaviour
 
     private void DamageEnemy(LivingObjectPhysics physics)
     {
-        print(_damageApplier);
-        print(physics.gameObject.GetComponent<LivingFacade>().Health);
         _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade>().Health);
+        _damageApplier.ApplyDamage(Health);
     }
 
     public void CheckBoundsWracks()

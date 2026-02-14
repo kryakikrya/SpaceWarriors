@@ -18,9 +18,6 @@ public class AsteroidMovement : MonoBehaviour
         _physics.AddForce(startVelocity.normalized, startVelocity.magnitude);
 
         _lastFrameVelocity = startVelocity;
-
-
-        print(startVelocity);
     }
 
     private void Update()

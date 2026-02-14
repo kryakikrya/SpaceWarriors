@@ -16,8 +16,10 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
     public void MakeObjectUnavailable(T obj)
     {
-        AvailableObjects.Remove(obj);
-        UnavailableObjects.Add(obj);
+        AvailableObjects.Add(obj);
+        UnavailableObjects.Remove(obj);
+
+        Debug.Log($"Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
     }
 
     public T GetAvailableObject(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction)
@@ -28,7 +30,7 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
         {
             objectToReturn = _factory.Create(poolableObject, jsonName, spawnPoint, direction);
 
-            Debug.Log($"Создан новый элемент пула {objectToReturn.name}. Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
+            Debug.Log($"Создан новый элемент пула {objectToReturn.name}");
         }
         else
         {
@@ -36,10 +38,15 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
             AvailableObjects.RemoveAt(0);
 
-            Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}. Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
+            objectToReturn.transform.position = spawnPoint;
+            objectToReturn.transform.rotation = Quaternion.Euler(direction);
+
+            Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}");
         }
 
         UnavailableObjects.Add((T)objectToReturn);
+
+        Debug.Log($"Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
 
         return (T)objectToReturn;
     }

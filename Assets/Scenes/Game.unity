@@ -542,6 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullet: {fileID: 8145764732560072300, guid: 4065013c64554744db1de2a5d9941f10, type: 3}
+  _asteroid: {fileID: 0}
 --- !u!1 &1356032104
 GameObject:
   m_ObjectHideFlags: 0
