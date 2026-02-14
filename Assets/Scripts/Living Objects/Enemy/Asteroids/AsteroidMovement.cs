@@ -2,18 +2,24 @@ using UnityEngine;
 
 public class AsteroidMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 1f;
     [SerializeField] private float _minSpeed = 0.1f;
+
+    private float _speed = 1f;
 
     private LivingObjectPhysics _physics;
 
     private Vector2 _lastFrameVelocity;
 
-    private void Awake()
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
+    }
+
+    public void StartMovement(Vector2 direciton)
     {
         _physics = GetComponent<LivingObjectPhysics>();
 
-        Vector2 startVelocity = new Vector2(Random.Range(-_speed, _speed), Random.Range(-_speed, _speed));
+        Vector2 startVelocity = direciton.normalized * _speed;
 
         _physics.AddForce(startVelocity.normalized, startVelocity.magnitude);
 

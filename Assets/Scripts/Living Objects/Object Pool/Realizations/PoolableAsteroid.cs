@@ -9,7 +9,7 @@ public class PoolableAsteroid : PoolableObject
     {
         if (settings is AsteroidSettings)
         {
-            GetComponent<AsteroidsFacade>().InitializeInfo((AsteroidSettings)settings);
+            GetComponent<AsteroidsFacade>().InitializeInfo((AsteroidSettings) settings);
         }
     }
 

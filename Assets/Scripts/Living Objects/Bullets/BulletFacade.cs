@@ -37,9 +37,7 @@ public class BulletFacade : LivingFacade
 
     private void Awake()
     {
-        _health = new BulletHealth();
-
-        _health.InitializeHealth(_maxHealth);
+        _health = new BulletHealth(_maxHealth);
     }
 
     public override void Death()

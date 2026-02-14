@@ -6,7 +6,7 @@ public abstract class Health
 
     private int _health = 1;
 
-    public void InitializeHealth(int health)
+    public Health (int health)
     {
         _health = health;
     }

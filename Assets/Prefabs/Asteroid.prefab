@@ -211,7 +211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3477f38cec2ee43ab7b0b7ef006f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
   _minSpeed: 0.1
 --- !u!114 &2250295458209450221
 MonoBehaviour:
@@ -227,6 +226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Offset: 0.1
   _maxHealth: 1
+  _movement: {fileID: 64040258078118175}
 --- !u!60 &261866817430619608
 PolygonCollider2D:
   m_ObjectHideFlags: 0
