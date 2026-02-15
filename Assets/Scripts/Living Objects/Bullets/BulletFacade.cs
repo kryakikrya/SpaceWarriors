@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(BulletPhysics))]
-public class BulletFacade : LivingFacade
+public class BulletFacade : LivingFacade, INeedStartMove
 {
     private const float Offset = -90;
 
@@ -22,6 +22,11 @@ public class BulletFacade : LivingFacade
 
         _poolMember = GetComponent<PoolableBullet>();
 
+        StartMove();
+    }
+
+    public void StartMove()
+    {
         float z = (transform.eulerAngles.z + Offset) * Mathf.Deg2Rad;
 
         Vector2 angle = new Vector2

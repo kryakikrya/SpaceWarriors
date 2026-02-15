@@ -22,13 +22,13 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
         Debug.Log($"Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
     }
 
-    public T GetAvailableObject(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction)
+    public T GetAvailableObject<Settings>(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Settings : IObjectSettings
     {
         PoolableObject objectToReturn;
 
         if (AvailableObjects.Count == 0)
         {
-            objectToReturn = _factory.Create(poolableObject, jsonName, spawnPoint, direction);
+            objectToReturn = _factory.Create<Settings>(poolableObject, jsonName, spawnPoint, direction);
 
             Debug.Log($"Создан новый элемент пула {objectToReturn.name}");
         }
@@ -40,6 +40,8 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
             objectToReturn.transform.position = spawnPoint;
             objectToReturn.transform.rotation = Quaternion.Euler(direction);
+
+            objectToReturn.gameObject.SetActive(true);
 
             Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}");
         }

@@ -15,6 +15,6 @@ public class PlayerShooter
 
     public void Shoot(Transform firePosition, Vector3 playerRotation)
     {
-        _pool.GetAvailableObject(_bullet, JsonName, firePosition.position, playerRotation);
+        _pool.GetAvailableObject<BulletSettings>(_bullet, JsonName, firePosition.position, playerRotation);
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IFactory<T> where T : PoolableObject
 {
-    PoolableObject Create(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction);
+    PoolableObject Create<Type>(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Type : IObjectSettings;
 
-    IObjectSettings GetSettings(string jsonName);
+    Type GetSettings<Type>(string jsonName) where Type : IObjectSettings; 
 }

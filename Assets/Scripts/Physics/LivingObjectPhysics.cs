@@ -33,7 +33,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
     #region Initialization
 
-    private void Awake ()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _rb.bodyType = RigidbodyType2D.Kinematic;
@@ -43,7 +43,7 @@ public class LivingObjectPhysics : MonoBehaviour
         _rb.useFullKinematicContacts = true;
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if ( _hits != null )
         {

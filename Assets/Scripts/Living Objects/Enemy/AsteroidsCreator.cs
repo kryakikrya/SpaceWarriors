@@ -21,12 +21,16 @@ public class AsteroidsCreator : MonoBehaviour
 
     [Inject] private PoolableObjectFactory _factory;
 
+    [Inject] private ObjectPool<PoolableAsteroid> _pool;
+
     private void Start()
     {
         foreach (Transform points in _spawnPoints)
         {
             points.position = points.position * (_settings.CameraSize / DefaultCameraSize);
         }
+
+        _pool.InitializeFactory(_factory);
 
         RandomTime();
     }
@@ -46,7 +50,7 @@ public class AsteroidsCreator : MonoBehaviour
 
             Vector3 directionToTarget = (_player.position - _spawnPoints[rnd].position).normalized;
 
-            PoolableObject asteroid = _factory.Create(_asteroid, JsonName, _spawnPoints[rnd].position, directionToTarget);
+            PoolableObject asteroid = _pool.GetAvailableObject<AsteroidSettings>(_asteroid, JsonName, _spawnPoints[rnd].position, directionToTarget);
 
             asteroid.GetComponent<AsteroidMovement>().StartMovement(directionToTarget);
 
