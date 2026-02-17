@@ -78,6 +78,13 @@ public class LivingObjectPhysics : MonoBehaviour
         _velocity = Vector2.ClampMagnitude(_velocity, Mathf.Log(_velocity.magnitude, 2));
     }
 
+
+    public void ZeroVelocity()
+    {
+        _velocity = Vector2.zero;
+        _frameMovementVector = Vector2.zero;
+    }
+
     private void FixedUpdate()
     {
         Perform();

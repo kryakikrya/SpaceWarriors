@@ -43,6 +43,8 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
             objectToReturn.gameObject.SetActive(true);
 
+            objectToReturn.InitializeInfo(_factory.GetSettings<Settings>(jsonName));
+
             Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}");
         }
 

@@ -8,23 +8,22 @@ public class AsteroidsFacade : LivingFacade, INeedStartMove
 
     private void Awake()
     {
-        _health = new AsteroidsHealth(_maxHealth);
+        _health = new PoolableObjectHealth(_maxHealth);
     }
 
     public void InitializeInfo(AsteroidSettings settings)
     {
-        Debug.Log(3);
+        _health.HealToMax();
+
         _settings = settings;
+
+        transform.localScale = Vector3.one * Random.Range(_settings.MinSize, _settings.MaxSize);
 
         StartMove();
     }
 
     public void StartMove()
     {
-        transform.localScale = Vector3.one * Random.Range(_settings.MinSize, _settings.MaxSize);
-
-        Debug.Log($"Scale is {transform.localScale}");
-
-        _movement.SetSpeed(Random.Range(_settings.MinSpeed, _settings.MaxSpeed));
+        _movement.SetSpeed(_settings.Speed);
     }
 }

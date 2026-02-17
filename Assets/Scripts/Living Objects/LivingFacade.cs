@@ -1,13 +1,8 @@
-using System.Collections;
 using UnityEngine;
 using Zenject;
 
 public class LivingFacade : MonoBehaviour
 {
-    private const int CheckBoundsTime = 5;
-
-    [SerializeField] private float Offset = 0.1f;
-
     [SerializeField] protected int _maxHealth = 3;
 
     protected Invulnerability _invulnerability;
@@ -36,8 +31,6 @@ public class LivingFacade : MonoBehaviour
         _damageApplier = new DamageApplier(1);
 
         DisableInvulnerability();
-
-        StartCoroutine(CheckBoundsWracks());
     }
 
     private void OnEnable()
@@ -63,19 +56,6 @@ public class LivingFacade : MonoBehaviour
     {
         _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade>().Health);
         _damageApplier.ApplyDamage(Health);
-    }
-
-    private IEnumerator CheckBoundsWracks()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(CheckBoundsTime);
-
-            if (Physics2D.OverlapCircle(transform.position, (transform.localScale.x * 2) + Offset, _physicalLayers.WrappingLayer) == false)
-            {
-                Death();
-            }
-        }
     }
 
     public void EnableInvulnerability()

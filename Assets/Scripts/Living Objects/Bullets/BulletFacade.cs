@@ -13,16 +13,23 @@ public class BulletFacade : LivingFacade, INeedStartMove
 
     public void InitializeInfo(BulletSettings settings)
     {
+        _health.HealToMax();
+
         _settings = settings;
+
+        if (movement == null)
+        {
+            FindComponents();
+        }
+
+        StartMove();
     }
 
-    private void Start()
+    private void FindComponents()
     {
         movement = new BulletMovement();
 
         _poolMember = GetComponent<PoolableBullet>();
-
-        StartMove();
     }
 
     public void StartMove()
@@ -35,14 +42,14 @@ public class BulletFacade : LivingFacade, INeedStartMove
             y = Mathf.Sin(z)
         };
 
-        print(_settings.Speed);
+        Debug.Log($"Start move {angle}");
 
         movement.StartMovement(_physics, angle, _settings.Speed);
     }
 
     private void Awake()
     {
-        _health = new BulletHealth(_maxHealth);
+        _health = new PoolableObjectHealth(_maxHealth);
     }
 
     public override void Death()

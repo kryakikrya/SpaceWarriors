@@ -19,6 +19,8 @@ public class AsteroidMovement : MonoBehaviour
     {
         _physics = GetComponent<LivingObjectPhysics>();
 
+        _physics.ZeroVelocity();
+
         Vector2 startVelocity = direciton.normalized * _speed;
 
         _physics.AddForce(startVelocity.normalized, startVelocity.magnitude);

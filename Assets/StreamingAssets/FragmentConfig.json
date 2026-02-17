@@ -1,5 +1,6 @@
 {
   "Speed": 0.5,
   "MinSize": 0.5,
-  "MaxSize": 2
+  "MaxSize": 2,
+  "FireTime": 4
 }
