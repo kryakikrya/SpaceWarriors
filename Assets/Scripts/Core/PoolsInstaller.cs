@@ -7,8 +7,6 @@ public class PoolsInstaller : MonoInstaller
 
     [SerializeField] private PoolableBullet _bullet;
 
-    [SerializeField] private PoolableAsteroid _asteroid;
-
     public override void InstallBindings()
     {
         Container.Bind<PoolableObjectFactory>().AsSingle();
@@ -17,8 +15,8 @@ public class PoolsInstaller : MonoInstaller
 
         Container.Bind<ObjectPool<PoolableBullet>>().AsSingle();
 
-        Container.Bind<PoolableAsteroid>().FromInstance(_asteroid).AsSingle();
-
         Container.Bind<ObjectPool<PoolableAsteroid>>().AsSingle();
+
+        Container.Bind<ObjectPool<PoolableFragment>>().AsSingle();
     }
 }

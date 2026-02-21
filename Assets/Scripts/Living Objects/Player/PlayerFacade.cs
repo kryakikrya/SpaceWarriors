@@ -14,8 +14,6 @@ public class PlayerFacade : LivingFacade
     {
         _shooter = new PlayerShooter();
         _shooter.Initialize(pool, bullet);
-
-        pool.InitializeFactory(factory);
     }
 
     private void Start()

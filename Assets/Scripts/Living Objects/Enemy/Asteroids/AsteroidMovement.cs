@@ -15,6 +15,11 @@ public class AsteroidMovement : MonoBehaviour
         _speed = speed;
     }
 
+    private void Start()
+    {
+        _physics = GetComponent<LivingObjectPhysics>();
+    }
+
     public void StartMovement(Vector2 direciton)
     {
         _physics = GetComponent<LivingObjectPhysics>();

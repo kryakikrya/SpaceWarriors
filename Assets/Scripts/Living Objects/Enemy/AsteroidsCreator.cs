@@ -30,8 +30,6 @@ public class AsteroidsCreator : MonoBehaviour
             points.position = points.position * (_settings.CameraSize / DefaultCameraSize);
         }
 
-        _pool.InitializeFactory(_factory);
-
         RandomTime();
     }
 

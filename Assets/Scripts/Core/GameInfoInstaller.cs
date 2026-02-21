@@ -6,6 +6,7 @@ public class GameInfoInstaller : MonoInstaller
     [SerializeField] private LayerMask _invulnerabilityLayer;
     [SerializeField] private LayerMask _defaultLayer;
     [SerializeField] private LayerMask _wrappingLayer;
+    [SerializeField] private LayerMask _fragmentLayer;
 
     [SerializeField] private GameSettings _settings;
     public override void InstallBindings()
@@ -13,12 +14,10 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<Invulnerability>().AsSingle();
 
         PhysicalLayers physicalLayers = new PhysicalLayers();
-        physicalLayers.Initialize(_invulnerabilityLayer, _defaultLayer, _wrappingLayer);
+        physicalLayers.Initialize(_invulnerabilityLayer, _defaultLayer, _wrappingLayer, _fragmentLayer);
 
         Container.Bind<PhysicalLayers>().FromInstance(physicalLayers).AsSingle();
 
         Container.Bind<GameSettings>().FromInstance(_settings).AsSingle();
-
-
     }
 }

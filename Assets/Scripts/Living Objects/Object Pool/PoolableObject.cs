@@ -11,8 +11,6 @@ public abstract class PoolableObject : MonoBehaviour, IPoolableObject<IObjectSet
         _health = _facade.Health;
 
         _health.OnObjectDeath += Death;
-
-        Debug.Log(_health.OnObjectDeath);
     }
 
     private void OnDisable()

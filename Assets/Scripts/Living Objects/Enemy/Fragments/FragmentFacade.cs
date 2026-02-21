@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 
@@ -40,5 +39,10 @@ public class FragmentFacade : LivingFacade, INeedStartMove
         {
             _health.Death();
         }
+    }
+
+    public override void DisableInvulnerability()
+    {
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer, _physicalLayers.FragmentLayer));
     }
 }

@@ -42,8 +42,6 @@ public class BulletFacade : LivingFacade, INeedStartMove
             y = Mathf.Sin(z)
         };
 
-        Debug.Log($"Start move {angle}");
-
         movement.StartMovement(_physics, angle, _settings.Speed);
     }
 
