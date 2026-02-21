@@ -15,8 +15,6 @@ public class PoolableFragment : PoolableObject
 
     public override void Death()
     {
-        Debug.Log("POOLABLE ASTEROID DEATH");
-
         _fragmentPool.MakeObjectUnavailable(this);
         gameObject.SetActive(false);
     }

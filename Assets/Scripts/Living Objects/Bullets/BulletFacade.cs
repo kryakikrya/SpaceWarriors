@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent (typeof(BulletPhysics))]
 public class BulletFacade : LivingFacade, INeedStartMove
@@ -10,6 +11,13 @@ public class BulletFacade : LivingFacade, INeedStartMove
     private BulletSettings _settings;
 
     private PoolableBullet _poolMember;
+
+    [Inject]
+    private void Construct(Invulnerability invulnerability, PhysicalLayers layers)
+    {
+        _invulnerability = invulnerability;
+        _physicalLayers = layers;
+    }
 
     public void InitializeInfo(BulletSettings settings)
     {
@@ -48,6 +56,10 @@ public class BulletFacade : LivingFacade, INeedStartMove
     private void Awake()
     {
         _health = new PoolableObjectHealth(_maxHealth);
+
+        _physics = GetComponent<LivingObjectPhysics>();
+
+        DisableInvulnerability();
     }
 
     public override void Death()

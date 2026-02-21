@@ -25,7 +25,7 @@ public class PlayerFacade : LivingFacade
     {
         _inputs.Shooting += Shoot;
 
-        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, _physicalLayers, gameObject);
+        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, this);
     }
 
     public void Shoot()

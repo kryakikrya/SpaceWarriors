@@ -1,6 +1,5 @@
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 public class PlayerHealth : Health
 {
     private const int MenuSceneID = 0;
@@ -9,31 +8,24 @@ public class PlayerHealth : Health
 
     private float _invulnerabilityTime;
 
-    private PhysicalLayers _physicalLayers;
+    private LivingFacade _player;
 
-    private GameObject _player;
-
-    public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, PhysicalLayers layers, GameObject player) : base(health)
+    public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, LivingFacade player) : base(health)
     {
         _invulnerability = invulnerability;
         _invulnerabilityTime = invulnerabilityTime;
-        _physicalLayers = layers;
         _player = player;
-
-        _invulnerability.EnableInvulnerability(_player, _physicalLayers.InvulnerabilityLayer);
     }
 
     public override async void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
 
-        Debug.Log(_player.layer.ToString());
-
-        _invulnerability.EnableInvulnerability(_player, _physicalLayers.InvulnerabilityLayer);
+        _player.EnableInvulnerability();
 
         await InvulnerabilityCD();
 
-        _invulnerability.DisableInvulnerability(_player, _physicalLayers.DefaultLayer, _physicalLayers.EnemyLayer, _physicalLayers.InvulnerabilityLayer);
+        _player.DisableInvulnerability();
     }
 
     public override void Death()
