@@ -65,7 +65,7 @@ public class LivingFacade : MonoBehaviour
 
     public virtual void DisableInvulnerability()
     {
-        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer));
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.EnemyLayer, _physicalLayers.InvulnerabilityLayer));
     }
 
     public virtual void Death()

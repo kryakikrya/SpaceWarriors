@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca04165f9f183f4d86622976122be4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: 0.1
   _maxHealth: 3
   _inputs: {fileID: 7588392182695867671}
   _firePos: {fileID: 976709526432192732}
+  _invulnerabilityTime: 2

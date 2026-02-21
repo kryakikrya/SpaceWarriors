@@ -3,10 +3,11 @@ using Zenject;
 
 public class GameInfoInstaller : MonoInstaller
 {
-    [SerializeField] private LayerMask _invulnerabilityLayer;
-    [SerializeField] private LayerMask _defaultLayer;
-    [SerializeField] private LayerMask _wrappingLayer;
-    [SerializeField] private LayerMask _fragmentLayer;
+    [SerializeField] private string _invulnerabilityLayer;
+    [SerializeField] private string _defaultLayer;
+    [SerializeField] private string _wrappingLayer;
+    [SerializeField] private string _fragmentLayer;
+    [SerializeField] private string _enemyLayer;
 
     [SerializeField] private GameSettings _settings;
     public override void InstallBindings()
@@ -14,7 +15,7 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<Invulnerability>().AsSingle();
 
         PhysicalLayers physicalLayers = new PhysicalLayers();
-        physicalLayers.Initialize(_invulnerabilityLayer, _defaultLayer, _wrappingLayer, _fragmentLayer);
+        physicalLayers.Initialize(_invulnerabilityLayer, _defaultLayer, _wrappingLayer, _fragmentLayer, _enemyLayer);
 
         Container.Bind<PhysicalLayers>().FromInstance(physicalLayers).AsSingle();
 

@@ -2,24 +2,28 @@ using UnityEngine;
 
 public class PhysicalLayers
 {
-    private LayerMask _invulnerabilityLayer;
-    private LayerMask _defaultLayer;
-    private LayerMask _wrappingLayer;
-    private LayerMask _fragmentLayer;
+    private string _invulnerabilityLayer;
+    private string _defaultLayer;
+    private string _wrappingLayer;
+    private string _fragmentLayer;
+    private string _enemyLayer;
 
-    public LayerMask InvulnerabilityLayer => _invulnerabilityLayer;
+    public string InvulnerabilityLayer => _invulnerabilityLayer;
 
-    public LayerMask DefaultLayer => _defaultLayer;
+    public string DefaultLayer => _defaultLayer;
 
-    public LayerMask WrappingLayer => _wrappingLayer;
+    public string WrappingLayer => _wrappingLayer;
 
-    public LayerMask FragmentLayer => _fragmentLayer;
+    public string FragmentLayer => _fragmentLayer;
 
-    public void Initialize(LayerMask invulnerabilityLayer, LayerMask defaultLayer, LayerMask wrappingLayer, LayerMask fragmentLayer)
-    {
+    public string EnemyLayer => _enemyLayer;
+
+    public void Initialize(string invulnerabilityLayer, string defaultLayer, string wrappingLayer, string fragmentLayer, string enemyLayer)
+    {   
         _invulnerabilityLayer = invulnerabilityLayer;
         _defaultLayer = defaultLayer;
         _wrappingLayer = wrappingLayer;
         _fragmentLayer = fragmentLayer;
+        _enemyLayer = enemyLayer;
     }
 }

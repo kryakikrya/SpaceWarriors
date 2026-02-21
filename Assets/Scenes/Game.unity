@@ -270,15 +270,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf536b0551ce0240bdada42f394e05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _invulnerabilityLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _defaultLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  _wrappingLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  _invulnerabilityLayer: Invulnerability Objects
+  _defaultLayer: Default
+  _wrappingLayer: Wrapping
+  _fragmentLayer: Fragment
+  _enemyLayer: Enemy
   _settings: {fileID: 11400000, guid: 79ebf7be97c30e64884b258cd5b7bd58, type: 2}
 --- !u!1 &519420028
 GameObject:

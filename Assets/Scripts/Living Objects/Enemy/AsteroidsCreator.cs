@@ -36,6 +36,8 @@ public class AsteroidsCreator : MonoBehaviour
     private void RandomTime()
     {
         _stepTime = _asteroidsRate + Random.Range(-_rateRandomOffset, _rateRandomOffset);
+
+        _currentTime = _stepTime;
     }
 
     private void Update()

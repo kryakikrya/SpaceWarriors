@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 public abstract class Health
 {
     public Action OnObjectDeath;
@@ -22,7 +21,7 @@ public abstract class Health
         _health = _maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         _health -= damage;
 

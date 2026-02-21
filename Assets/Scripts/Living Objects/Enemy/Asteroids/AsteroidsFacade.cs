@@ -26,4 +26,9 @@ public class AsteroidsFacade : LivingFacade, INeedStartMove
     {
         _movement.SetSpeed(_settings.Speed);
     }
+
+    public override void DisableInvulnerability()
+    {
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.EnemyLayer, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer));
+    }
 }

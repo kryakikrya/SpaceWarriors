@@ -7,20 +7,25 @@ public class PlayerFacade : LivingFacade
 
     [SerializeField] private GameObject _firePos;
 
+    [SerializeField] private float _invulnerabilityTime;
+
     private PlayerShooter _shooter;
 
     [Inject]
-    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory)
+    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability)
     {
         _shooter = new PlayerShooter();
+
         _shooter.Initialize(pool, bullet);
+
+        _invulnerability = invulnerability;
     }
 
     private void Start()
     {
         _inputs.Shooting += Shoot;
 
-        _health = new PlayerHealth(_maxHealth);
+        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, _physicalLayers, gameObject);
     }
 
     public void Shoot()

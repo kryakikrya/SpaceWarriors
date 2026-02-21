@@ -43,6 +43,6 @@ public class FragmentFacade : LivingFacade, INeedStartMove
 
     public override void DisableInvulnerability()
     {
-        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer, _physicalLayers.FragmentLayer));
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer, _physicalLayers.FragmentLayer, _physicalLayers.EnemyLayer));
     }
 }
