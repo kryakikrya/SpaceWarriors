@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class LivingFacade : MonoBehaviour
 {
     [SerializeField] protected int _maxHealth = 3;
+
+    [SerializeField] private List<string> _layersToIgnore = new List<string>();
 
     protected Invulnerability _invulnerability;
 
@@ -66,13 +69,13 @@ public class LivingFacade : MonoBehaviour
         _physics.ChangeFilter(_invulnerability.EnableInvulnerability(gameObject, _physicalLayers.InvulnerabilityLayer));
     }
 
-    public virtual void DisableInvulnerability()
+    public void DisableInvulnerability()
     {
-        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _physicalLayers.InvulnerabilityLayer));
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _layersToIgnore));
     }
 
     public virtual void Death()
     {
-        Debug.Log($"{name} was killed");
+        Debug.Log($"{name} was killed!");
     }
 }

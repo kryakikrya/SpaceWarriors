@@ -55,30 +55,38 @@ public class EnemiesCreator : MonoBehaviour
 
             int asteroidOrUFO = Random.Range(0, 3);
 
+            PoolableObject poolableObject;
+
             if (asteroidOrUFO > 1)
             {
                 Vector3 directionToTarget = (_player.position - _spawnPoints[rnd].position).normalized;
 
-                SpawnAsteroid(rnd, directionToTarget);
+                poolableObject = SpawnAsteroid(rnd, directionToTarget);
             }
             else
             {
-                SpawnUFO(rnd);
+                poolableObject = SpawnUFO(rnd);
             }
+
+            poolableObject.GetComponent<LivingFacade>().Health.HealToMax();
 
             _currentTime = 0;
         }
     }
 
-    private void SpawnAsteroid(int rnd, Vector3 directionToTarget)
+    private PoolableObject SpawnAsteroid(int rnd, Vector3 directionToTarget)
     {
         PoolableObject asteroid = _asteroidPool.GetAvailableObject<AsteroidSettings>(_asteroid, AsteroidJsonName, _spawnPoints[rnd].position, directionToTarget);
 
         asteroid.GetComponent<AsteroidMovement>().StartMovement(directionToTarget);
+
+        return asteroid;
     }
 
-    private void SpawnUFO(int rnd)
+    private PoolableObject SpawnUFO(int rnd)
     {
         PoolableObject ufo = _UFOPool.GetAvailableObject<UFOSettings>(_UFO, UFOJsonName, _spawnPoints[rnd].position, Vector3.zero);
+
+        return ufo;
     }
 }

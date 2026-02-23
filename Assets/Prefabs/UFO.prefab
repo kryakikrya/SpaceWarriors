@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6043639413866417760}
   - component: {fileID: 2257211751703852118}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 419750681119412742}
   - component: {fileID: 3854160210790610544}
   - component: {fileID: 7299454344069349918}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: UFO
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -258,3 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 3
+  _layersToIgnore:
+  - Invulnerability Objects
+  - Asteroid
+  - Fragment

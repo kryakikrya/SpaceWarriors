@@ -276,7 +276,8 @@ MonoBehaviour:
   _defaultLayer: Default
   _wrappingLayer: Wrapping
   _fragmentLayer: Fragment
-  _enemyLayer: Asteroid
+  _asteroidLayer: Asteroid
+  _ufoLayer: UFO
   _player: {fileID: 6381035703448316369}
   _settings: {fileID: 11400000, guid: 79ebf7be97c30e64884b258cd5b7bd58, type: 2}
 --- !u!1 &519420028

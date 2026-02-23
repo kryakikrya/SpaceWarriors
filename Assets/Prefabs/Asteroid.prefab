@@ -261,6 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
+  _layersToIgnore:
+  - Invulnerability Objects
+  - UFO
   _movement: {fileID: 64040258078118175}
 --- !u!60 &261866817430619608
 PolygonCollider2D:

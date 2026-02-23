@@ -50,8 +50,6 @@ public class PlayerInputs : MonoBehaviour
     {
         await BlockInputs(signal.InvulnerabilityTime);
 
-        Debug.Log("Block 2");
-
         _canControl = true;
     }
 

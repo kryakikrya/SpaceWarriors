@@ -187,6 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
+  _layersToIgnore:
+  - Fragment
+  - Invulnerability Objects
   _movement: {fileID: 5978709660841071698}
 --- !u!114 &9140109711583606832
 MonoBehaviour:

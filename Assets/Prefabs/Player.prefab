@@ -392,6 +392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 3
+  _layersToIgnore:
+  - Invulnerability Objects
   _inputs: {fileID: 7588392182695867671}
   _firePos: {fileID: 976709526432192732}
   _invulnerabilityTime: 2

@@ -6,7 +6,8 @@ public class PhysicalLayers
     private string _defaultLayer;
     private string _wrappingLayer;
     private string _fragmentLayer;
-    private string _enemyLayer;
+    private string _asteroidLayer;
+    private string _ufoLayer;
 
     public string InvulnerabilityLayer => _invulnerabilityLayer;
 
@@ -16,14 +17,17 @@ public class PhysicalLayers
 
     public string FragmentLayer => _fragmentLayer;
 
-    public string EnemyLayer => _enemyLayer;
+    public string AsteroidLayer => _asteroidLayer;
 
-    public void Initialize(string invulnerabilityLayer, string defaultLayer, string wrappingLayer, string fragmentLayer, string enemyLayer)
+    public string UFOLayer => _ufoLayer;
+
+    public void Initialize(string invulnerabilityLayer, string defaultLayer, string wrappingLayer, string fragmentLayer, string enemyLayer, string ufoLayer)
     {   
         _invulnerabilityLayer = invulnerabilityLayer;
         _defaultLayer = defaultLayer;
         _wrappingLayer = wrappingLayer;
         _fragmentLayer = fragmentLayer;
-        _enemyLayer = enemyLayer;
+        _asteroidLayer = enemyLayer;
+        _ufoLayer = ufoLayer;
     }
 }
