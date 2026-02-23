@@ -31,7 +31,7 @@ public class PlayerHealth : Health
 
         await InvulnerabilityCD();
 
-        _player.DisableInvulnerability();
+        _player?.DisableInvulnerability();
     }
 
     public override void Death()

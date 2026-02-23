@@ -12,6 +12,8 @@ public class PlayerInputs : MonoBehaviour
 
     public event Action Shooting;
 
+    public event Action Laser;
+
     private LivingObjectPhysics _physics;
 
     private bool _canControl = true;
@@ -38,6 +40,11 @@ public class PlayerInputs : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 Shooting?.Invoke();
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                Laser?.Invoke();
             }
         }
         else

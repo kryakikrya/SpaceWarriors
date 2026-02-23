@@ -259,6 +259,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 3
   _layersToIgnore:
-  - Invulnerability Objects
   - Asteroid
   - Fragment
+  - Invulnerability Objects
