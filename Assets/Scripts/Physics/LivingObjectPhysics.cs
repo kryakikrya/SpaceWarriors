@@ -31,6 +31,8 @@ public class LivingObjectPhysics : MonoBehaviour
 
     public Vector2 CurrentVelocity => _velocity;
 
+    public float MaxSpeed => _maxSpeed;
+
     #region Initialization
 
     private void Awake()
@@ -62,6 +64,7 @@ public class LivingObjectPhysics : MonoBehaviour
 
     public virtual void AddForce(Vector2 direction, float speed)
     {
+        direction = direction.normalized;
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
 
@@ -99,6 +102,11 @@ public class LivingObjectPhysics : MonoBehaviour
         _velocity *= Mathf.Exp(-_inertionModifier * delta);
 
         Move();
+    }
+
+    public void SetMaxSpeed(float maxSpeed)
+    {
+        _maxSpeed = maxSpeed;
     }
 
     private void CheckOverlap(Collision2D collision)

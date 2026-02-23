@@ -9,6 +9,8 @@ public class GameInfoInstaller : MonoInstaller
     [SerializeField] private string _fragmentLayer;
     [SerializeField] private string _enemyLayer;
 
+    [SerializeField] private PlayerFacade _player;
+
     [SerializeField] private GameSettings _settings;
     public override void InstallBindings()
     {
@@ -20,5 +22,7 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<PhysicalLayers>().FromInstance(physicalLayers).AsSingle();
 
         Container.Bind<GameSettings>().FromInstance(_settings).AsSingle();
+
+        Container.Bind<PlayerFacade>().FromInstance(_player).AsSingle();
     }
 }

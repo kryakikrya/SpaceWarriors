@@ -18,5 +18,7 @@ public class PoolsInstaller : MonoInstaller
         Container.Bind<ObjectPool<PoolableAsteroid>>().AsSingle();
 
         Container.Bind<ObjectPool<PoolableFragment>>().AsSingle();
+
+        Container.Bind<ObjectPool<PoolableUFO>>().AsSingle();
     }
 }

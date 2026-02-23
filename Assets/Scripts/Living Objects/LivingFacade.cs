@@ -22,6 +22,8 @@ public class LivingFacade : MonoBehaviour
     {
         _invulnerability = invulnerability;
         _physicalLayers = layers;
+
+        _health = new PoolableObjectHealth(_maxHealth);
     }
 
     private void Awake()

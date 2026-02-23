@@ -30,8 +30,6 @@ public class PlayerInputs : MonoBehaviour
     {
         if (_canControl)
         {
-            Debug.Log("Controlling");
-
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
@@ -44,7 +42,7 @@ public class PlayerInputs : MonoBehaviour
         }
         else
         {
-            _physics.AddForce(_physics.CurrentVelocity, _speed);
+            _physics.AddForce(_physics.CurrentVelocity, _speed / 3);
         }
     }
 

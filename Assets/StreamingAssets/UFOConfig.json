@@ -1,0 +1,7 @@
+{
+  "Speed": 3,
+  "DashCharingTime": 1,
+  "DashSpeedModificator": 20,
+  "MaxSpeedModificator": 5,
+  "DistanceToStartDash": 7
+}

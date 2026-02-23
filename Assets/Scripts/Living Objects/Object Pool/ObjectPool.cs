@@ -18,8 +18,6 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
     {
         AvailableObjects.Add(obj);
         UnavailableObjects.Remove(obj);
-
-        //Debug.Log($"Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
     }
 
     public T GetAvailableObject<Settings>(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Settings : IObjectSettings
@@ -28,10 +26,7 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
         if (AvailableObjects.Count == 0)
         {
-            //Debug.Log($"{poolableObject},,,{jsonName},,,{spawnPoint},,,{direction},,,{_factory}");
             objectToReturn = _factory.Create<Settings>(poolableObject, jsonName, spawnPoint, direction);
-
-            //Debug.Log($"Создан новый элемент пула {objectToReturn.name}");
         }
         else
         {
@@ -45,13 +40,9 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
             objectToReturn.gameObject.SetActive(true);
 
             objectToReturn.InitializeInfo(_factory.GetSettings<Settings>(jsonName));
-
-            //Debug.Log($"Изменен существующий доступный элемент пула {objectToReturn.name}");
         }
 
         UnavailableObjects.Add((T)objectToReturn);
-
-       //Debug.Log($"Теперь в пуле доступных {AvailableObjects.Count} элементов. А в пуле недоступных {UnavailableObjects.Count}");
 
         return (T)objectToReturn;
     }
