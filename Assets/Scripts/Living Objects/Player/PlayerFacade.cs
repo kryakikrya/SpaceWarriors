@@ -11,21 +11,25 @@ public class PlayerFacade : LivingFacade
 
     private PlayerShooter _shooter;
 
+    private SignalBus _signalBus;
+
     [Inject]
-    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability)
+    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus)
     {
         _shooter = new PlayerShooter();
 
         _shooter.Initialize(pool, bullet);
 
         _invulnerability = invulnerability;
+
+        _signalBus = bus;
     }
 
     private void Start()
     {
         _inputs.Shooting += Shoot;
 
-        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, this);
+        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, this, _signalBus);
     }
 
     public void Shoot()

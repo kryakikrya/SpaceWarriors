@@ -59,6 +59,8 @@ public class BulletFacade : LivingFacade, INeedStartMove
 
         _physics = GetComponent<LivingObjectPhysics>();
 
+        _damageApplier = new DamageApplier(1);
+
         DisableInvulnerability();
     }
 

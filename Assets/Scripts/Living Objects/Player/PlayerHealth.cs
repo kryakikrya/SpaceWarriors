@@ -1,7 +1,10 @@
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
+using Zenject;
 public class PlayerHealth : Health
 {
+    private SignalBus _signalBus;
+
     private const int MenuSceneID = 0;
 
     private Invulnerability _invulnerability;
@@ -10,11 +13,12 @@ public class PlayerHealth : Health
 
     private LivingFacade _player;
 
-    public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, LivingFacade player) : base(health)
+    public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, LivingFacade player, SignalBus signalBus) : base(health)
     {
         _invulnerability = invulnerability;
         _invulnerabilityTime = invulnerabilityTime;
         _player = player;
+        _signalBus = signalBus;
     }
 
     public override async void TakeDamage(int damage)
@@ -22,6 +26,8 @@ public class PlayerHealth : Health
         base.TakeDamage(damage);
 
         _player.EnableInvulnerability();
+
+        _signalBus.Fire(new PlayerDamagedSignal { InvulnerabilityTime = _invulnerabilityTime });
 
         await InvulnerabilityCD();
 
