@@ -190,6 +190,7 @@ MonoBehaviour:
   _layersToIgnore:
   - Fragment
   - Invulnerability Objects
+  _myLayer: Fragment
   _movement: {fileID: 5978709660841071698}
 --- !u!114 &9140109711583606832
 MonoBehaviour:

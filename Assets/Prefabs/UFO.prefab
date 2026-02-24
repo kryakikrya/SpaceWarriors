@@ -262,3 +262,4 @@ MonoBehaviour:
   - Asteroid
   - Fragment
   - Invulnerability Objects
+  _myLayer: UFO

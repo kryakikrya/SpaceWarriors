@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +15,9 @@ public class GameInfoInstaller : MonoInstaller
     [SerializeField] private PlayerFacade _player;
 
     [SerializeField] private GameSettings _settings;
+
+    [SerializeField] private NewRewardDictionary _typeToReward;
+
     public override void InstallBindings()
     {
         Container.Bind<Invulnerability>().AsSingle();
@@ -25,5 +30,37 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<GameSettings>().FromInstance(_settings).AsSingle();
 
         Container.Bind<PlayerFacade>().FromInstance(_player).AsSingle();
+
+        Container.Bind<Dictionary<EnemyType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
     }
+}
+
+[Serializable]
+public class NewRewardDictionary
+{
+    [SerializeField] private NewRewardItem[] _items;
+
+    public Dictionary<EnemyType, int> ToDictionary()
+    {
+        Dictionary<EnemyType, int> newDictionary = new Dictionary<EnemyType, int>();
+
+        foreach (var item in _items)
+        {
+            newDictionary.Add(item.Type, item.Reward);
+        }
+
+        return newDictionary;
+    }
+}
+
+[Serializable]
+public class NewRewardItem
+{
+    [SerializeField] private EnemyType _type;
+
+    public EnemyType Type => _type;
+
+    [SerializeField] private int _reward;
+
+    public int Reward => _reward;
 }

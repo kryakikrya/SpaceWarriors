@@ -1,6 +1,8 @@
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using Zenject;
+using System;
+
 public class PlayerHealth : Health
 {
     private SignalBus _signalBus;
@@ -12,6 +14,8 @@ public class PlayerHealth : Health
     private float _invulnerabilityTime;
 
     private LivingFacade _player;
+
+    public Action<float> OnInvulnerability;
 
     public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, LivingFacade player, SignalBus signalBus) : base(health)
     {

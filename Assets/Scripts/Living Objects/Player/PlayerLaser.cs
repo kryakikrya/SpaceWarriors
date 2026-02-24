@@ -101,8 +101,6 @@ public class PlayerLaser : MonoBehaviour
 
             _currentLasers++;
             _currentLasers = Mathf.Clamp(_currentLasers, 0, _maxLasers);
-
-            Debug.Log(_currentLasers);
         }
     }
 }

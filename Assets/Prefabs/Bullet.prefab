@@ -108,8 +108,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f091d7a390642474c8720b8c6ca9a658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Offset: 0
   _maxHealth: 1
+  _layersToIgnore: []
+  _myLayer: Default
 --- !u!114 &8145764732560072300
 MonoBehaviour:
   m_ObjectHideFlags: 0

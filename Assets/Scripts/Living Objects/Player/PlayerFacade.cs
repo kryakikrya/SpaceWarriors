@@ -9,9 +9,13 @@ public class PlayerFacade : LivingFacade
 
     [SerializeField] private float _invulnerabilityTime;
 
+    [SerializeField] private GameObject _invulnerabilityEffect;
+
     private PlayerShooter _shooter;
 
     private SignalBus _signalBus;
+
+    private InvulnerabilityVisual _invulnerabilityVisual;
 
     [Inject]
     public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus)
@@ -29,11 +33,34 @@ public class PlayerFacade : LivingFacade
     {
         _inputs.Shooting += Shoot;
 
-        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, this, _signalBus);
+        InitializeHealth();
     }
 
     public void Shoot()
     {
         _shooter.Shoot(_firePos.transform, transform.rotation.eulerAngles);
+    }
+
+    private void InitializeHealth()
+    {
+        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, this, _signalBus);
+    }
+
+    protected override void Enable()
+    {
+        base.Enable();
+
+        InitializeHealth();
+
+        _invulnerabilityVisual = new InvulnerabilityVisual(_invulnerabilityEffect, Health as PlayerHealth);
+
+        _invulnerabilityVisual.Subscribe();
+    }
+
+    protected override void Disable()
+    {
+        base.Disable();
+
+        _invulnerabilityVisual.Unsubscribe();
     }
 }

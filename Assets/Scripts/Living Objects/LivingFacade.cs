@@ -8,6 +8,8 @@ public class LivingFacade : MonoBehaviour
 
     [SerializeField] private List<string> _layersToIgnore = new List<string>();
 
+    [SerializeField] private string _myLayer;
+
     protected Invulnerability _invulnerability;
 
     protected LivingObjectPhysics _physics;
@@ -40,6 +42,11 @@ public class LivingFacade : MonoBehaviour
 
     private void OnEnable()
     {
+        Enable();
+    }
+
+    protected virtual void Enable()
+    {
         if (_physics == null)
         {
             _physics = GetComponent<LivingObjectPhysics>();
@@ -53,6 +60,11 @@ public class LivingFacade : MonoBehaviour
     }
 
     private void OnDisable()
+    {
+        Disable();
+    }
+
+    protected virtual void Disable()
     {
         _physics.Colliding -= DamageEnemy;
     }
@@ -71,7 +83,7 @@ public class LivingFacade : MonoBehaviour
 
     public void DisableInvulnerability()
     {
-        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _physicalLayers.DefaultLayer, _layersToIgnore));
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _myLayer, _layersToIgnore));
     }
 
     public virtual void Death()
