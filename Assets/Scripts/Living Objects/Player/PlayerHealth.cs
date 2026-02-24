@@ -2,6 +2,7 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 using Zenject;
 using System;
+using UnityEngine;
 
 public class PlayerHealth : Health
 {
@@ -31,11 +32,16 @@ public class PlayerHealth : Health
 
         _player.EnableInvulnerability();
 
+        OnInvulnerability?.Invoke(_invulnerabilityTime);
+
         _signalBus.Fire(new PlayerDamagedSignal { InvulnerabilityTime = _invulnerabilityTime });
 
         await InvulnerabilityCD();
 
-        _player?.DisableInvulnerability();
+        if (_player != null)
+        {
+            _player.DisableInvulnerability();
+        }
     }
 
     public override void Death()

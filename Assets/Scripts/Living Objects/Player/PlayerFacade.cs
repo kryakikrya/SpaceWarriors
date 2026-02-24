@@ -33,7 +33,10 @@ public class PlayerFacade : LivingFacade
     {
         _inputs.Shooting += Shoot;
 
-        InitializeHealth();
+        if (_health == null)
+        {
+            InitializeHealth();
+        }
     }
 
     public void Shoot()
