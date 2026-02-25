@@ -1,9 +1,12 @@
+using System;
+using System.Threading;
 using UnityEngine;
-
 
 public class FragmentFacade : LivingFacade, INeedStartMove
 {
     [SerializeField] private AsteroidMovement _movement;
+
+    private CancellationTokenSource _cts;
 
     private FragmentSettings _settings;
 
@@ -18,26 +21,43 @@ public class FragmentFacade : LivingFacade, INeedStartMove
 
         _settings = settings;
 
-        transform.localScale = Vector3.one * Random.Range(_settings.MinSize, _settings.MaxSize);
+        transform.localScale = Vector3.one * UnityEngine.Random.Range(_settings.MinSize, _settings.MaxSize);
 
         StartMove();
     }
 
-    public void StartMove()
+    public async void StartMove()
     {
-        _movement.SetSpeed(_settings.Speed);
+        try
+        {
+            _movement.SetSpeed(_settings.Speed);
+
+            _health.HealToMax();
+
+            FragmentVisual visual = new FragmentVisual();
+            await visual.FireTask(_cts.Token, transform, _settings.FireTime);
+
+            if (gameObject.activeSelf == true)
+            {
+                _health.Death();
+            }
+        }
+        catch (OperationCanceledException)
+        {
+
+        }
     }
 
-    public override async void Death()
+    protected override void Enable()
     {
-        base.Death();
+        base.Enable();
+        _cts = new CancellationTokenSource();
+    }
 
-        FragmentVisual visual = new FragmentVisual();
-        await visual.FireTask(transform, _settings.FireTime);
-
-        if (_health.CurrentHealth > 0)
-        {
-            _health.Death();
-        }
+    protected override void Disable()
+    {
+        base.Disable();
+        _cts.Cancel();
+        _cts.Dispose();
     }
 }

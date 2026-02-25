@@ -5248,12 +5248,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5141185569290897819}
   - component: {fileID: 6707387477961495919}
-  - component: {fileID: 3806441489899621198}
   - component: {fileID: 7588392182695867671}
   - component: {fileID: 2061717021790033043}
   - component: {fileID: 2730602527678385582}
   - component: {fileID: 2051933846649171911}
   - component: {fileID: 592907787990720982}
+  - component: {fileID: 8033023591881533439}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -5307,24 +5307,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3806441489899621198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5631140411177366943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a011900c983013245af2dbdfe4a4b34a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bounceReduction: 2
-  _minMovement: 0.005
-  _hitOffset: 0.01
-  _maxSpeed: 3
-  _mass: 20
-  _inertionModifier: 3
 --- !u!114 &7588392182695867671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5429,6 +5411,24 @@ MonoBehaviour:
   _damagePerRate: 3
   _damageRate: 0.025
   _laserCD: 4
+--- !u!114 &8033023591881533439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5631140411177366943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c930ab5dc8bc74081e05ac9669bb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bounceReduction: 2
+  _minMovement: 0.005
+  _hitOffset: 0.01
+  _maxSpeed: 3
+  _mass: 20
+  _inertionModifier: 3
 --- !u!1 &8738988451709887238
 GameObject:
   m_ObjectHideFlags: 0

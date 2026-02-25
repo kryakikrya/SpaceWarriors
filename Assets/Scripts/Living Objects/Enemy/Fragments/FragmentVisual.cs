@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System.Threading;
 using UnityEngine;
 
 public class FragmentVisual
@@ -9,7 +10,7 @@ public class FragmentVisual
 
     private bool IsTimeElapsed => _timer >= _duration;
 
-    public async UniTask FireTask(Transform fragment, float duration)
+    public async UniTask FireTask(CancellationToken token, Transform fragment, float duration)
     {
         _duration = duration;
 
@@ -17,7 +18,7 @@ public class FragmentVisual
 
         while (!IsTimeElapsed)
         {
-            await UniTask.Yield(PlayerLoopTiming.Update);
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
             Step(startScale, fragment);
         }
     }
