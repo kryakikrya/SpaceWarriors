@@ -6,7 +6,7 @@ using Zenject;
 [RequireComponent(typeof(LivingObjectPhysics))]
 public class PlayerInputs : MonoBehaviour
 {
-    [SerializeField] private float _speed;
+    private float _speed;
 
     [Inject] private SignalBus _signalBus;
 
@@ -26,6 +26,11 @@ public class PlayerInputs : MonoBehaviour
     private void OnEnable()
     {
         _signalBus.Subscribe<PlayerDamagedSignal>(OnDamaged);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
     }
 
     private void Update()

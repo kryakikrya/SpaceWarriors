@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using Zenject;
+using System.IO;
 
 public class GameInfoInstaller : MonoInstaller
 {
@@ -18,6 +19,8 @@ public class GameInfoInstaller : MonoInstaller
 
     [SerializeField] private NewRewardDictionary _typeToReward;
 
+    [SerializeField] private string _playerJSON;
+
     public override void InstallBindings()
     {
         Container.Bind<Invulnerability>().AsSingle();
@@ -32,6 +35,13 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<PlayerFacade>().FromInstance(_player).AsSingle();
 
         Container.Bind<Dictionary<EnemyType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
+
+        Container.Bind<PlayerSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
+    }
+
+    public PlayerSettings GetSettings(string jsonName)
+    {
+        return JsonUtility.FromJson<PlayerSettings>(File.ReadAllText($"{Application.streamingAssetsPath}/{jsonName}"));
     }
 }
 

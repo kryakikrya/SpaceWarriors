@@ -5337,7 +5337,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fd419f923f882a499e249f72405bf60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
 --- !u!114 &2061717021790033043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5408,6 +5407,8 @@ MonoBehaviour:
   _firePos: {fileID: 976709526432192732}
   _invulnerabilityTime: 2
   _invulnerabilityEffect: {fileID: 2137281125690627168}
+  _laser: {fileID: 592907787990720982}
+  _rotator: {fileID: 2061717021790033043}
 --- !u!114 &592907787990720982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5427,7 +5428,6 @@ MonoBehaviour:
   _laserTime: 1
   _damagePerRate: 3
   _damageRate: 0.025
-  _maxLasers: 3
   _laserCD: 4
 --- !u!1 &8738988451709887238
 GameObject:

@@ -3,9 +3,9 @@ public abstract class Health
 {
     public Action OnObjectDeath;
 
-    private int _health = 1;
+    protected int _health = 1;
 
-    private int _maxHealth = 1;
+    protected int _maxHealth = 1;
 
     public int CurrentHealth => _health;
 

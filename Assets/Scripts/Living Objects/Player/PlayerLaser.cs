@@ -16,9 +16,9 @@ public class PlayerLaser : MonoBehaviour
 
     [SerializeField] private float _damageRate = 0.05f;
 
-    [SerializeField] private int _maxLasers = 3;
-
     [SerializeField] private float _laserCD;
+
+    private int _maxLasers = 3;
 
     private int _currentLasers;
 
@@ -45,6 +45,12 @@ public class PlayerLaser : MonoBehaviour
     private void OnDisable()
     {
         _inputs.Laser -= Laser;
+    }
+
+    public void SetSettings(int maxLasers, int laserCD)
+    {
+        _maxLasers = maxLasers;
+        _laserCD = laserCD;
     }
 
     private async void Laser()
