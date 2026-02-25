@@ -18,8 +18,8 @@ public class PlayerHealthView : View
 
     public override void Subscribe()
     {
-        CreateHPItems(_viewModel.MaxHealth.Value);
-        _viewModel.MaxHealth.OnChanged += CreateHPItems;
+        CreateHPItems(_viewModel.HeartsCount.Value);
+        _viewModel.HeartsCount.OnChanged += CreateHPItems;
 
         ChangeHPItems(_viewModel.CurrentHealth.Value);
         _viewModel.CurrentHealth.OnChanged += ChangeHPItems;
@@ -27,7 +27,7 @@ public class PlayerHealthView : View
 
     public override void Dispose()
     {
-        _viewModel.MaxHealth.OnChanged -= CreateHPItems;
+        _viewModel.HeartsCount.OnChanged -= CreateHPItems;
         _viewModel.CurrentHealth.OnChanged -= ChangeHPItems;
     }
 

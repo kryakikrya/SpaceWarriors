@@ -7,6 +7,8 @@ public class PlayerHealthViewModel : ViewModel
     public ReactiveProperty<int> MaxHealth = new ReactiveProperty<int>();
     public ReactiveProperty<int> CurrentHealth = new ReactiveProperty<int>();
 
+    public ReactiveProperty<int> HeartsCount = new ReactiveProperty<int>();
+
     public PlayerHealthViewModel(PlayerHealthModel model) : base(model)
     {
         _model = model;
@@ -26,12 +28,12 @@ public class PlayerHealthViewModel : ViewModel
     private void OnModelMaxHealthChanged(int newValue)
     {
         MaxHealth.Value = newValue;
+
+        HeartsCount.Value = newValue;
     }
 
     private void OnModelCurrentHealthChanged(int newValue)
     {
-        Debug.Log($"OnModelCurrentHealthChanged {newValue}");
-
         CurrentHealth.Value = newValue;
     }
 

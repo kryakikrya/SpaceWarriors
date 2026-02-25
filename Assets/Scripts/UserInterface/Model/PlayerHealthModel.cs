@@ -13,8 +13,6 @@ public class PlayerHealthModel : Model
 
     public void ChangeHealth(int health)
     {
-        Debug.Log($"ChangeHealth {health}");
-
         CurrentHealth.Value = Mathf.Clamp(health, 0, Health.Value);
     }
 }
