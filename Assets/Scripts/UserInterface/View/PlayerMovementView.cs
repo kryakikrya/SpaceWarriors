@@ -12,6 +12,8 @@ public class PlayerMovementView : View
     public override void SetViewModel(ViewModel viewModel)
     {
         _viewModel = viewModel as PlayerMovementViewModel;
+
+        Subscribe();
     }
 
     public override void Subscribe()

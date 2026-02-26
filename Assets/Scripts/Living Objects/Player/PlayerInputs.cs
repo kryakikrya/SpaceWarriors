@@ -54,7 +54,7 @@ public class PlayerInputs : MonoBehaviour
         }
         else
         {
-            _physics.AddForce(_physics.CurrentVelocity, _speed / 3);
+            _physics.AddForce(new Vector2(0, 0), _speed);
         }
     }
 

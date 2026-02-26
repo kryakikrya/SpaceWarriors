@@ -14,6 +14,8 @@ public class PlayerHealthView : View
     public override void SetViewModel(ViewModel viewModel)
     {
         _viewModel = viewModel as PlayerHealthViewModel;
+
+        Subscribe();
     }
 
     public override void Subscribe()
@@ -43,7 +45,10 @@ public class PlayerHealthView : View
         for (int i = 0; i < value; i++)
         {
             Image item = Instantiate(_HPItem, _parent);
+
             _hp.Add(item);
+
+            item.color = Color.red;
         }
     }
 
@@ -53,11 +58,11 @@ public class PlayerHealthView : View
         {
             if (i < value)
             {
-                _hp[i].color = Color.red;
+                _hp[i].gameObject.SetActive(true);
             }
             else
             {
-                _hp[i].color = Color.black;
+                _hp[i].gameObject.SetActive(false);
             }
         }
     }

@@ -15,4 +15,9 @@ public class PlayerHealthModel : Model
     {
         CurrentHealth.Value = Mathf.Clamp(health, 0, Health.Value);
     }
+
+    public void ChangeMaxHealth(int health)
+    {
+        Health.Value = health;
+    }
 }

@@ -8,10 +8,14 @@ public class InterfaceBinder : MonoBehaviour
     [SerializeField] private  PlayerObjectPhysics _physics;
     [SerializeField] private PlayerMovementView _movementView;
 
+    [SerializeField] private PlayerLaser _laser;
+    [SerializeField] private LaserInformationView _laserView;
+
     private void Start()
     {
         InitializeHealth();
         InitializeMovement();
+        InitializeLaser();
     }
 
     private void InitializeHealth()
@@ -21,7 +25,6 @@ public class InterfaceBinder : MonoBehaviour
         PlayerHealthViewModel _healthViewModel = new PlayerHealthViewModel(health.Model);
 
         _healthView.SetViewModel(_healthViewModel);
-        _healthView.Subscribe();
     }
 
     private void InitializeMovement()
@@ -31,6 +34,14 @@ public class InterfaceBinder : MonoBehaviour
         PlayerMovementViewModel _movementViewModel = new PlayerMovementViewModel(model);
 
         _movementView.SetViewModel(_movementViewModel);
-        _movementView.Subscribe();
+    }
+
+    private void InitializeLaser()
+    {
+        LaserInformationModel model = _laser.Model;
+
+        LaserInformationViewModel _movementViewModel = new LaserInformationViewModel(model);
+
+        _laserView.SetViewModel(_movementViewModel);
     }
 }

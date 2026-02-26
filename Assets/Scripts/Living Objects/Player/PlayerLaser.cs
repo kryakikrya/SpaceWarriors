@@ -28,6 +28,10 @@ public class PlayerLaser : MonoBehaviour
 
     public Action<int> OnLaserSpend;
 
+    private LaserInformationModel _model = new LaserInformationModel();
+
+    public LaserInformationModel Model => _model;
+
     private void Start()
     {
         _applier = new DamageApplier(_damagePerRate);
@@ -72,6 +76,9 @@ public class PlayerLaser : MonoBehaviour
     private void SpendLaser()
     {
         _currentLasers--;
+
+        _model.ChangeCurrentCharges(_currentLasers);
+
         OnLaserSpend?.Invoke(_currentLasers);
     }
 
@@ -101,12 +108,26 @@ public class PlayerLaser : MonoBehaviour
 
     private async UniTask LaserCD()
     {
+        await UniTask.WaitForFixedUpdate();
+        _model.ChangeCurrentCharges(_currentLasers);
+
         while (true)
         {
-            await UniTask.WaitForSeconds(_laserCD);
+            float timer = 0;
+
+            while (timer < _laserCD)
+            {
+                await UniTask.WaitForFixedUpdate();
+                timer += Time.fixedDeltaTime;
+
+                _model.ChangeCurrentCD(Mathf.Clamp(_laserCD - timer, 0, _laserCD));
+            }
 
             _currentLasers++;
+
             _currentLasers = Mathf.Clamp(_currentLasers, 0, _maxLasers);
+
+            _model.ChangeCurrentCharges(_currentLasers);
         }
     }
 }
