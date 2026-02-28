@@ -38,8 +38,6 @@ public class PlayerFacade : LivingFacade
 
     private void Start()
     {
-        _inputs.Shooting += Shoot;
-
         if (_health == null)
         {
             InitializeHealth();
@@ -70,6 +68,8 @@ public class PlayerFacade : LivingFacade
     {
         base.Enable();
 
+        _inputs.Source.Shooting += Shoot;
+
         InitializeHealth();
 
         _invulnerabilityVisual = new InvulnerabilityVisual(_invulnerabilityEffect, Health as PlayerHealth, _signalBus);
@@ -80,6 +80,8 @@ public class PlayerFacade : LivingFacade
     protected override void Disable()
     {
         base.Disable();
+
+        _inputs.Source.Shooting -= Shoot;
 
         _signalBus.Unsubscribe<PlayerDamagedSignal>(Invulnerability);
 

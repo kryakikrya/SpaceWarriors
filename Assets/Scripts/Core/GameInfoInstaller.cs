@@ -21,8 +21,16 @@ public class GameInfoInstaller : MonoInstaller
 
     [SerializeField] private string _playerJSON;
 
+    [SerializeField] private VirtualJoystick _joystick;
+
+    [SerializeField] private VirtualJoystick _directionJoystick;
+
+    [SerializeField] private ShootButton[] _buttons;
+
     public override void InstallBindings()
     {
+        EnableControls();
+
         Container.Bind<Invulnerability>().AsSingle();
 
         PhysicalLayers physicalLayers = new PhysicalLayers();
@@ -42,6 +50,25 @@ public class GameInfoInstaller : MonoInstaller
     public PlayerSettings GetSettings(string jsonName)
     {
         return JsonUtility.FromJson<PlayerSettings>(File.ReadAllText($"{Application.streamingAssetsPath}/{jsonName}"));
+    }
+
+    public void EnableControls()
+    {
+#if  UNITY_ANDROID || UNITY_IOS
+        Container.Bind<IPlayerInputSource>().To<MobileInputSource>().AsSingle().WithArguments(_joystick, _buttons);
+
+        Container.Bind<VirtualJoystick>().FromInstance(_directionJoystick);
+
+        _joystick.gameObject.SetActive(true);
+        _directionJoystick.gameObject.SetActive(true);
+
+        foreach (var button in _buttons)
+        {
+            button.gameObject.SetActive(true);
+        }
+#else
+        Container.BindInterfacesTo<PCInputSource>().AsSingle();
+#endif
     }
 }
 

@@ -10,13 +10,13 @@ public class PlayerInputs : MonoBehaviour
 
     [Inject] private SignalBus _signalBus;
 
-    public event Action Shooting;
-
-    public event Action Laser;
+    [Inject] private IPlayerInputSource _inputSource;
 
     private LivingObjectPhysics _physics;
 
     private bool _canControl = true;
+
+    public IPlayerInputSource Source => _inputSource;
 
     private void Start()
     {
@@ -35,27 +35,15 @@ public class PlayerInputs : MonoBehaviour
 
     private void Update()
     {
-        if (_canControl)
+        if (_canControl == false)
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-
-            _physics.AddForce(new Vector2(horizontal, vertical), _speed);
-
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                Shooting?.Invoke();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                Laser?.Invoke();
-            }
+            _physics.AddForce(Vector2.zero, _speed);
+            return;
         }
-        else
-        {
-            _physics.AddForce(new Vector2(0, 0), _speed);
-        }
+
+        Vector2 movement = _inputSource.Movement;
+
+        _physics.AddForce(movement, _speed);
     }
 
     private async void OnDamaged(PlayerDamagedSignal signal)

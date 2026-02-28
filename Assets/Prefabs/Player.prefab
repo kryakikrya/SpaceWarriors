@@ -5409,7 +5409,7 @@ MonoBehaviour:
   _inputs: {fileID: 7588392182695867671}
   _laserTime: 1
   _damagePerRate: 3
-  _damageRate: 0.025
+  _damageRate: 0.005
   _laserCD: 4
 --- !u!114 &8033023591881533439
 MonoBehaviour:

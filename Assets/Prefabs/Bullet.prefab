@@ -141,7 +141,7 @@ MonoBehaviour:
   _hitOffset: 0.003
   _maxSpeed: 5
   _mass: 1
-  _inertionModifier: 0
+  _inertionModifier: 1
 --- !u!70 &6427630823899799260
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

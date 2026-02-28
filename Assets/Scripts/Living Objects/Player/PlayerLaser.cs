@@ -43,12 +43,12 @@ public class PlayerLaser : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputs.Laser += Laser;
+        _inputs.Source.Laser += Laser;
     }
 
     private void OnDisable()
     {
-        _inputs.Laser -= Laser;
+        _inputs.Source.Laser -= Laser;
     }
 
     public void SetSettings(int maxLasers, int laserCD)
