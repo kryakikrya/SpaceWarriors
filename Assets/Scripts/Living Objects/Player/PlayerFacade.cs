@@ -23,7 +23,7 @@ public class PlayerFacade : LivingFacade
     private InvulnerabilityVisual _invulnerabilityVisual;
 
     [Inject]
-    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus, PlayerSettings settings)
+    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus, PlayerParametersSettings settings)
     {
         _shooter = new PlayerShooter();
 
@@ -44,7 +44,7 @@ public class PlayerFacade : LivingFacade
         }
     }
 
-    private void SetSettings(PlayerSettings settings)
+    private void SetSettings(PlayerParametersSettings settings)
     {
         _inputs.SetSpeed(settings.Speed);
         _maxHealth = settings.Health;
@@ -94,7 +94,10 @@ public class PlayerFacade : LivingFacade
 
         await InvulnerabilityCD(signal.InvulnerabilityTime);
 
-        DisableInvulnerability();
+        if (gameObject != null)
+        {
+            DisableInvulnerability();
+        }
     }
 
     private async UniTask InvulnerabilityCD(float time)

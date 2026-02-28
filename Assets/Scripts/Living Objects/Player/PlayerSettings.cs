@@ -1,4 +1,4 @@
-public class PlayerSettings : IObjectSettings
+public class PlayerParametersSettings : IObjectSettings
 {
     public float Speed;
     public int Health;

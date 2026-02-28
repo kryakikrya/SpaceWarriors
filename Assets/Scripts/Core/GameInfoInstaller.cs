@@ -6,6 +6,8 @@ using System.IO;
 
 public class GameInfoInstaller : MonoInstaller
 {
+    [SerializeField] private string _menuName = "Menu";
+
     [SerializeField] private string _invulnerabilityLayer;
     [SerializeField] private string _defaultLayer;
     [SerializeField] private string _wrappingLayer;
@@ -44,12 +46,18 @@ public class GameInfoInstaller : MonoInstaller
 
         Container.Bind<Dictionary<PoolableObjectType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
 
-        Container.Bind<PlayerSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
+        Container.Bind<PlayerParametersSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
     }
 
-    public PlayerSettings GetSettings(string jsonName)
+    public override void Start()
     {
-        return JsonUtility.FromJson<PlayerSettings>(File.ReadAllText($"{Application.streamingAssetsPath}/{jsonName}"));
+        base.Start();
+        AdsController ads = new AdsController(_menuName, _player);
+    }
+
+    public PlayerParametersSettings GetSettings(string jsonName)
+    {
+        return JsonUtility.FromJson<PlayerParametersSettings>(File.ReadAllText($"{Application.streamingAssetsPath}/{jsonName}"));
     }
 
     public void EnableControls()

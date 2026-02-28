@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerHealthViewModel : ViewModel
 {
     private PlayerHealthModel _model; 

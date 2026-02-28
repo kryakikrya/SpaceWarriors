@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PhysicalLayers
 {
     private string _invulnerabilityLayer;

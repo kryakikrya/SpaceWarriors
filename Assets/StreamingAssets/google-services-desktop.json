@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "302402144915",
+    "firebase_url": "https://asteroids-81144-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "asteroids-81144",
+    "storage_bucket": "asteroids-81144.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302402144915:android:80f2acbe4f4aa62ed1db66",
+        "android_client_info": {
+          "package_name": "com.krk.asteroids"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm-cTiByX9IfYD8p1e7A8qM97PMJ5TR64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

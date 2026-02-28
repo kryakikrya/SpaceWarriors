@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class ScoreRewardViewModel : ViewModel
 {
     private ScoreRewardModel _model;

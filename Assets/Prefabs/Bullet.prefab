@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 8145764732560072300}
   - component: {fileID: 5758290930420482207}
   - component: {fileID: 6427630823899799260}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 1
-  _layersToIgnore: []
+  _layersToIgnore:
+  - Invulnerability Objects
   _myLayer: Default
 --- !u!114 &8145764732560072300
 MonoBehaviour:

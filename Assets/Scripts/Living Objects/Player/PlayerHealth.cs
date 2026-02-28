@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class PlayerHealth : Health
@@ -35,6 +34,6 @@ public class PlayerHealth : Health
 
     public override void Death()
     {
-        SceneManager.LoadScene(MenuSceneID);
+        OnObjectDeath?.Invoke();
     }
 }
