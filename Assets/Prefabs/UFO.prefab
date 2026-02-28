@@ -245,6 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _facade: {fileID: 7299454344069349918}
+  _type: 2
 --- !u!114 &7299454344069349918
 MonoBehaviour:
   m_ObjectHideFlags: 0

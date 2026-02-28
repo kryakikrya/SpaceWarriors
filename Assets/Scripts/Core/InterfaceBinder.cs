@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class InterfaceBinder : MonoBehaviour
 {
@@ -11,37 +12,48 @@ public class InterfaceBinder : MonoBehaviour
     [SerializeField] private PlayerLaser _laser;
     [SerializeField] private LaserInformationView _laserView;
 
+    [Inject] private ScoreRewardModel _scoreRewardModel;
+    [SerializeField] private ScoreView _scoreView;
+
     private void Start()
     {
         InitializeHealth();
         InitializeMovement();
         InitializeLaser();
+        InitializeScore();
     }
 
     private void InitializeHealth()
     {
         PlayerHealth health = _facade.Health as PlayerHealth;
 
-        PlayerHealthViewModel _healthViewModel = new PlayerHealthViewModel(health.Model);
+        PlayerHealthViewModel healthViewModel = new PlayerHealthViewModel(health.Model);
 
-        _healthView.SetViewModel(_healthViewModel);
+        _healthView.SetViewModel(healthViewModel);
     }
 
     private void InitializeMovement()
     {
         PlayerMovementModel model = _physics.Model;
 
-        PlayerMovementViewModel _movementViewModel = new PlayerMovementViewModel(model);
+        PlayerMovementViewModel movementViewModel = new PlayerMovementViewModel(model);
 
-        _movementView.SetViewModel(_movementViewModel);
+        _movementView.SetViewModel(movementViewModel);
     }
 
     private void InitializeLaser()
     {
         LaserInformationModel model = _laser.Model;
 
-        LaserInformationViewModel _movementViewModel = new LaserInformationViewModel(model);
+        LaserInformationViewModel movementViewModel = new LaserInformationViewModel(model);
 
-        _laserView.SetViewModel(_movementViewModel);
+        _laserView.SetViewModel(movementViewModel);
+    }
+
+    private void InitializeScore()
+    {
+        ScoreRewardViewModel viewModel = new ScoreRewardViewModel(_scoreRewardModel);
+
+        _scoreView.SetViewModel(viewModel);
     }
 }

@@ -3,7 +3,11 @@ public abstract class PoolableObject : MonoBehaviour, IPoolableObject<IObjectSet
 {
     [SerializeField] private LivingFacade _facade;
 
+    [SerializeField] private PoolableObjectType _type;
+
     protected Health _health;
+
+    public PoolableObjectType Type => _type;
 
     private void OnEnable()
     {

@@ -5,8 +5,13 @@ public class ShootButton : Button
 {
     public event Action OnShoot;
 
-    private void Awake()
+    protected override void OnEnable()
     {
         onClick.AddListener(() => OnShoot?.Invoke());
+    }
+
+    protected override void OnDisable()
+    {
+        onClick.RemoveAllListeners();
     }
 }

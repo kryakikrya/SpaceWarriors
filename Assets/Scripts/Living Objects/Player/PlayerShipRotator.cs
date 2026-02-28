@@ -4,7 +4,9 @@ public class PlayerShipRotator : Rotator
 {
     [SerializeField] private Camera _camera;
 
+#if UNITY_ANDROID || UNITY_IOS
     [Inject] private VirtualJoystick _joystick;
+#endif
 
     public void SetRotationSpeed(float speed)
     {

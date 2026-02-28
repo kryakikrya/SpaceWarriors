@@ -42,7 +42,7 @@ public class GameInfoInstaller : MonoInstaller
 
         Container.Bind<PlayerFacade>().FromInstance(_player).AsSingle();
 
-        Container.Bind<Dictionary<EnemyType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
+        Container.Bind<Dictionary<PoolableObjectType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
 
         Container.Bind<PlayerSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
     }
@@ -77,9 +77,9 @@ public class NewRewardDictionary
 {
     [SerializeField] private NewRewardItem[] _items;
 
-    public Dictionary<EnemyType, int> ToDictionary()
+    public Dictionary<PoolableObjectType, int> ToDictionary()
     {
-        Dictionary<EnemyType, int> newDictionary = new Dictionary<EnemyType, int>();
+        Dictionary<PoolableObjectType, int> newDictionary = new Dictionary<PoolableObjectType, int>();
 
         foreach (var item in _items)
         {
@@ -93,9 +93,9 @@ public class NewRewardDictionary
 [Serializable]
 public class NewRewardItem
 {
-    [SerializeField] private EnemyType _type;
+    [SerializeField] private PoolableObjectType _type;
 
-    public EnemyType Type => _type;
+    public PoolableObjectType Type => _type;
 
     [SerializeField] private int _reward;
 

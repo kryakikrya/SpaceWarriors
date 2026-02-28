@@ -9,6 +9,8 @@ public class PoolsInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
+        Container.Bind<ScoreRewardModel>().AsSingle();
+
         Container.Bind<PoolableObjectFactory>().AsSingle();
 
         Container.Bind<PoolableBullet>().FromInstance(_bullet).AsSingle();

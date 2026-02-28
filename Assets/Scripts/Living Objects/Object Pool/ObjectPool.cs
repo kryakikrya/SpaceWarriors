@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 {
+    [Inject] private ScoreRewardModel _scoreModel;
+
     protected PoolableObjectFactory _factory;
 
     public List<T> AvailableObjects { get; private set; } = new List<T>();
@@ -11,13 +14,15 @@ public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
 
     public ObjectPool (PoolableObjectFactory factory)
     {
-                _factory = factory;
+        _factory = factory;
     }
 
     public void MakeObjectUnavailable(T obj)
     {
         AvailableObjects.Add(obj);
         UnavailableObjects.Remove(obj);
+
+        _scoreModel.AddScore(obj.Type);
     }
 
     public T GetAvailableObject<Settings>(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Settings : IObjectSettings
