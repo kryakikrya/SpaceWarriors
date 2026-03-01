@@ -12,8 +12,6 @@ public class FragmentFacade : PoolableObjectFacade, INeedStartMove
 
     public void InitializeInfo(FragmentSettings settings)
     {
-        _health.HealToMax();
-
         _settings = settings;
 
         transform.localScale = Vector3.one * UnityEngine.Random.Range(_settings.MinSize, _settings.MaxSize);

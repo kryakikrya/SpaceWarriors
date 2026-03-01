@@ -1,3 +1,4 @@
+using UnityEngine;
 using Zenject;
 
 public class PlayerHealth : Health
@@ -14,6 +15,9 @@ public class PlayerHealth : Health
 
     public PlayerHealth(PlayerParametersSettings settings, Invulnerability invulnerability, SignalBus signalBus) : base(settings)
     {
+        _health = settings.Health;
+        _maxHealth = settings.Health;
+
         _invulnerability = invulnerability;
 
         _invulnerabilityTime = settings.InvulnerabilityTime;

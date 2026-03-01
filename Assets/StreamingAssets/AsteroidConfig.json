@@ -1,5 +1,5 @@
 {
-  "Health": 2,
+  "MaxHealth": 2,
   "Speed": 2.5,
   "MinSize": 1,
   "MaxSize": 2.5

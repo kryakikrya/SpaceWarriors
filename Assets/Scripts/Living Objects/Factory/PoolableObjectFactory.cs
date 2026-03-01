@@ -19,6 +19,10 @@ public class PoolableObjectFactory
 
         newObject.InitializeInfo(GetSettings<Settings>(jsonName));
 
+        newObject.GetComponent<LivingFacade>().Health.HealToMax();
+
+        Debug.Log(newObject.GetComponent<LivingFacade>().Health.CurrentHealth);
+
         return newObject;
     }
 

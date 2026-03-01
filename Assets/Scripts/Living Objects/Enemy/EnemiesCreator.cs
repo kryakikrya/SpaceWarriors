@@ -1,5 +1,6 @@
 using UnityEngine;
 using Zenject;
+using static Zenject.SignalDeclaration;
 
 public class EnemiesCreator : MonoBehaviour
 {
@@ -18,15 +19,18 @@ public class EnemiesCreator : MonoBehaviour
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private Transform _player;
 
-    [Inject] private GameSettings _settings;
+    private GameSettings _settings;
 
     private float _currentTime = 0;
 
-    [Inject] private PoolableObjectFactory _factory;
+    private PoolableObjectFactory _factory;
 
-    [Inject] private ObjectPool<AsteroidPresentation> _asteroidPool;
-
-    [Inject] private ObjectPool<UFOPresentation> _UFOPool;
+    [Inject]
+    private void Costruct(GameSettings settings, PoolableObjectFactory factory)
+    {
+        _settings = settings;
+        _factory = factory;
+    }
 
     private void Start()
     {
@@ -53,40 +57,32 @@ public class EnemiesCreator : MonoBehaviour
 
             int asteroidOrUFO = Random.Range(0, 3);
 
-            PoolableObject poolableObject;
-
             if (asteroidOrUFO > 1)
             {
                 Vector3 directionToTarget = (_player.position - _spawnPoints[rnd].position).normalized;
 
-                poolableObject = SpawnAsteroid(rnd, directionToTarget);
+                SpawnAsteroid(rnd, directionToTarget);
             }
             else
             {
-                poolableObject = SpawnUFO(rnd);
+                SpawnUFO(rnd);
             }
 
             _currentTime = 0;
 
             RandomTime();
-
-            poolableObject.GetComponent<LivingFacade>().Health.HealToMax();
         }
     }
 
-    private PoolableObject SpawnAsteroid(int rnd, Vector3 directionToTarget)
+    private void SpawnAsteroid(int rnd, Vector3 directionToTarget)
     {
-        PoolableObject asteroid = _asteroidPool.GetAvailableObject<AsteroidSettings>(_asteroid, AsteroidJsonName, _spawnPoints[rnd].position, directionToTarget);
+        PoolableObject asteroid = _factory.Create<AsteroidSettings>(_asteroid, AsteroidJsonName, _spawnPoints[rnd].position, directionToTarget);
 
         asteroid.GetComponent<AsteroidMovement>().StartMovement(directionToTarget);
-
-        return asteroid;
     }
 
-    private PoolableObject SpawnUFO(int rnd)
+    private void SpawnUFO(int rnd)
     {
-        PoolableObject ufo = _UFOPool.GetAvailableObject<UFOSettings>(_UFO, UFOJsonName, _spawnPoints[rnd].position, Vector3.zero);
-
-        return ufo;
+        _factory.Create<UFOSettings>(_UFO, UFOJsonName, _spawnPoints[rnd].position, Vector3.zero);
     }
 }

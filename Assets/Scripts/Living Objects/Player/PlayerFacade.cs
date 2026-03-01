@@ -81,7 +81,7 @@ public class PlayerFacade : LivingFacade
 
         await InvulnerabilityCD(signal.InvulnerabilityTime);
 
-        if (gameObject != null)
+        if (this != null)
         {
             DisableInvulnerability();
         }
