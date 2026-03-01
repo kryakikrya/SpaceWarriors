@@ -3,5 +3,9 @@
   "Health": 5,
   "MaxLasers": 3,
   "LaserCD": 8,
-  "RotationSpeed": 720
+  "RotationSpeed": 720,
+  "LaserTime": 1,
+  "LaserDamagePerRate": 5,
+  "DamageRate": 0.03,
+  "InvulnerabilityTime":  3
 }

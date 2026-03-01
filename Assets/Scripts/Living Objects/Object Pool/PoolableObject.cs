@@ -1,27 +1,27 @@
 using UnityEngine;
-public abstract class PoolableObject : MonoBehaviour, IPoolableObject<IObjectSettings>
+public abstract class PoolableObject : MonoBehaviour
 {
-    [SerializeField] private LivingFacade _facade;
+    [SerializeField] private PoolableObjectFacade _facade;
 
     [SerializeField] private PoolableObjectType _type;
 
-    protected Health _health;
+    protected PoolableObjectHealth _health;
 
     public PoolableObjectType Type => _type;
 
-    private void OnEnable()
-    {
-        _health = _facade.Health;
-
-        _health.OnObjectDeath += Death;
-    }
-
-    private void OnDisable()
+    private void OnDestroy()
     {
         _health.OnObjectDeath -= Death;
     }
 
-    public abstract void InitializeInfo(IObjectSettings settings);
+    public virtual void InitializeInfo(IObjectSettings settings)
+    {
+        _health = new PoolableObjectHealth(settings);
+
+        _facade.InitializeHealth(_health);
+
+        _health.OnObjectDeath += Death;
+    }
 
     public abstract void Death();
 }

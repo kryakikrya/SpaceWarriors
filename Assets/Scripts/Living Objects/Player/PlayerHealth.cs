@@ -4,8 +4,6 @@ public class PlayerHealth : Health
 {
     private SignalBus _signalBus;
 
-    private const int MenuSceneID = 0;
-
     private Invulnerability _invulnerability;
 
     private float _invulnerabilityTime;
@@ -14,10 +12,11 @@ public class PlayerHealth : Health
 
     public PlayerHealthModel Model => _healthModel;
 
-    public PlayerHealth(int health, Invulnerability invulnerability, float invulnerabilityTime, SignalBus signalBus) : base(health)
+    public PlayerHealth(PlayerParametersSettings settings, Invulnerability invulnerability, SignalBus signalBus) : base(settings)
     {
         _invulnerability = invulnerability;
-        _invulnerabilityTime = invulnerabilityTime;
+
+        _invulnerabilityTime = settings.InvulnerabilityTime;
         _signalBus = signalBus;
 
         _healthModel = new PlayerHealthModel(_maxHealth);

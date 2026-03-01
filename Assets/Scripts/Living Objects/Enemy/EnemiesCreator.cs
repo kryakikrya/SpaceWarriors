@@ -8,8 +8,8 @@ public class EnemiesCreator : MonoBehaviour
 
     private const float DefaultCameraSize = 5;
 
-    [SerializeField] private PoolableAsteroid _asteroid;
-    [SerializeField] private PoolableUFO _UFO;
+    [SerializeField] private AsteroidPresentation _asteroid;
+    [SerializeField] private UFOPresentation _UFO;
 
     [SerializeField] private float _enemiesRate = 3f;
     [SerializeField] private float _rateRandomOffset = 0.5f;
@@ -24,9 +24,9 @@ public class EnemiesCreator : MonoBehaviour
 
     [Inject] private PoolableObjectFactory _factory;
 
-    [Inject] private ObjectPool<PoolableAsteroid> _asteroidPool;
+    [Inject] private ObjectPool<AsteroidPresentation> _asteroidPool;
 
-    [Inject] private ObjectPool<PoolableUFO> _UFOPool;
+    [Inject] private ObjectPool<UFOPresentation> _UFOPool;
 
     private void Start()
     {
@@ -41,8 +41,6 @@ public class EnemiesCreator : MonoBehaviour
     private void RandomTime()
     {
         _stepTime = _enemiesRate + Random.Range(-_rateRandomOffset, _rateRandomOffset);
-
-        _currentTime = _stepTime;
     }
 
     private void Update()
@@ -68,9 +66,11 @@ public class EnemiesCreator : MonoBehaviour
                 poolableObject = SpawnUFO(rnd);
             }
 
-            poolableObject.GetComponent<LivingFacade>().Health.HealToMax();
-
             _currentTime = 0;
+
+            RandomTime();
+
+            poolableObject.GetComponent<LivingFacade>().Health.HealToMax();
         }
     }
 

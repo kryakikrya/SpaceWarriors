@@ -945,6 +945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf536b0551ce0240bdada42f394e05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _menuName: Menu
   _invulnerabilityLayer: Invulnerability Objects
   _defaultLayer: Default
   _wrappingLayer: Wrapping
@@ -2682,7 +2683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c470610fc50baf43800f3cdf653eb59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bullet: {fileID: 8145764732560072300, guid: 4065013c64554744db1de2a5d9941f10, type: 3}
+  _bullet: {fileID: 2460898393334516481, guid: 4065013c64554744db1de2a5d9941f10, type: 3}
 --- !u!1 &1340381073
 GameObject:
   m_ObjectHideFlags: 0
@@ -4277,7 +4278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64ba06915a27ed94aa127d77c3e2b186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _asteroid: {fileID: 7760970590622831593, guid: ed44dba94351abb499f66810a6c1bd83, type: 3}
+  _asteroid: {fileID: 85850201584807180, guid: ed44dba94351abb499f66810a6c1bd83, type: 3}
   _UFO: {fileID: 3854160210790610544, guid: 80ac94dc0d8bf814986483b7c026ffda, type: 3}
   _enemiesRate: 3
   _rateRandomOffset: 0.5

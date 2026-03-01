@@ -10,15 +10,15 @@ public class PlayerLaser : MonoBehaviour
 
     [SerializeField] private PlayerInputs _inputs;
 
-    [SerializeField] private float _laserTime;
+    private float _laserTime;
 
-    [SerializeField] private int _damagePerRate = 1;
+    private int _damagePerRate;
 
-    [SerializeField] private float _damageRate = 0.05f;
+    private float _damageRate;
 
-    [SerializeField] private float _laserCD;
+    private float _laserCD;
 
-    private int _maxLasers = 3;
+    private int _maxLasers;
 
     private int _currentLasers;
 
@@ -51,10 +51,13 @@ public class PlayerLaser : MonoBehaviour
         _inputs.Source.Laser -= Laser;
     }
 
-    public void SetSettings(int maxLasers, int laserCD)
+    public void SetSettings(int maxLasers, int laserCD, float laserTime, int damagePerRate, float damageRate)
     {
         _maxLasers = maxLasers;
         _laserCD = laserCD;
+        _damagePerRate = damagePerRate;
+        _damageRate = damageRate;
+        _laserTime = laserTime;
     }
 
     private async void Laser()
@@ -89,7 +92,7 @@ public class PlayerLaser : MonoBehaviour
 
         while (timer < _laserTime)
         {
-            timer += Time.fixedDeltaTime;
+            timer += _damageRate;
 
             RaycastHit2D[] hits;
             hits = Physics2D.RaycastAll(_laserOrigin.transform.position, _laserDirection.transform.position - _laserOrigin.transform.position, 30f);

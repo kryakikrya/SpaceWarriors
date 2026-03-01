@@ -1,15 +1,10 @@
 using UnityEngine;
 
-public class AsteroidsFacade : LivingFacade, INeedStartMove
+public class AsteroidsFacade : PoolableObjectFacade, INeedStartMove
 {
     [SerializeField] private AsteroidMovement _movement;
 
     private AsteroidSettings _settings;
-
-    private void Awake()
-    {
-        _health = new PoolableObjectHealth(_maxHealth);
-    }
 
     public void InitializeInfo(AsteroidSettings settings)
     {

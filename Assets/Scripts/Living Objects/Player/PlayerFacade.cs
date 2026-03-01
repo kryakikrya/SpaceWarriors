@@ -23,7 +23,7 @@ public class PlayerFacade : LivingFacade
     private InvulnerabilityVisual _invulnerabilityVisual;
 
     [Inject]
-    public void Construct(PoolableBullet bullet, ObjectPool<PoolableBullet> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus, PlayerParametersSettings settings)
+    public void Construct(BulletPresentation bullet, ObjectPool<BulletPresentation> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus, PlayerParametersSettings settings, PlayerHealth health)
     {
         _shooter = new PlayerShooter();
 
@@ -33,22 +33,16 @@ public class PlayerFacade : LivingFacade
 
         _signalBus = bus;
 
-        SetSettings(settings);
-    }
+        _health = health;
 
-    private void Start()
-    {
-        if (_health == null)
-        {
-            InitializeHealth();
-        }
+        SetSettings(settings);
     }
 
     private void SetSettings(PlayerParametersSettings settings)
     {
         _inputs.SetSpeed(settings.Speed);
-        _maxHealth = settings.Health;
-        _laser.SetSettings(settings.MaxLasers, settings.LaserCD);
+
+        _laser.SetSettings(settings.MaxLasers, settings.LaserCD, settings.LaserTime, settings.LaserDamagePerRate, settings.DamageRate);
         _rotator.SetRotationSpeed(settings.RotationSpeed);
     }
 
@@ -57,22 +51,15 @@ public class PlayerFacade : LivingFacade
         _shooter.Shoot(_firePos.transform, transform.rotation.eulerAngles);
     }
 
-    private void InitializeHealth()
-    {
-        _health = new PlayerHealth(_maxHealth, _invulnerability, _invulnerabilityTime, _signalBus);
-
-        _signalBus.Subscribe<PlayerDamagedSignal>(Invulnerability);
-    }
-
     protected override void Enable()
     {
         base.Enable();
 
         _inputs.Source.Shooting += Shoot;
 
-        InitializeHealth();
+        _signalBus.Subscribe<PlayerDamagedSignal>(Invulnerability);
 
-        _invulnerabilityVisual = new InvulnerabilityVisual(_invulnerabilityEffect, Health as PlayerHealth, _signalBus);
+        _invulnerabilityVisual = new InvulnerabilityVisual(_invulnerabilityEffect, _signalBus);
 
         _invulnerabilityVisual.Subscribe();
     }

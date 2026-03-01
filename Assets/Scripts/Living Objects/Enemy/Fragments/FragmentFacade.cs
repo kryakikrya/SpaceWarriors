@@ -2,18 +2,13 @@ using System;
 using System.Threading;
 using UnityEngine;
 
-public class FragmentFacade : LivingFacade, INeedStartMove
+public class FragmentFacade : PoolableObjectFacade, INeedStartMove
 {
     [SerializeField] private AsteroidMovement _movement;
 
     private CancellationTokenSource _cts;
 
     private FragmentSettings _settings;
-
-    private void Awake()
-    {
-        _health = new PoolableObjectHealth(_maxHealth);
-    }
 
     public void InitializeInfo(FragmentSettings settings)
     {

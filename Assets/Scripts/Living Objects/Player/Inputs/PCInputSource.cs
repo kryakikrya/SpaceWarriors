@@ -4,6 +4,9 @@ using Zenject;
 
 public class PCInputSource : IPlayerInputSource, ITickable
 {
+    private const string HorizontalAxisName = "Horizontal";
+    private const string VerticalAxisName = "Horizontal";
+
     public event Action Shooting;
     public event Action Laser;
 
@@ -11,8 +14,8 @@ public class PCInputSource : IPlayerInputSource, ITickable
     {
         get
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
+            float horizontal = Input.GetAxis(HorizontalAxisName);
+            float vertical = Input.GetAxis(VerticalAxisName);
 
             return new Vector2(horizontal, vertical);
         }

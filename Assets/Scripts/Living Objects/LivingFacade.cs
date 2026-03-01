@@ -4,8 +4,6 @@ using Zenject;
 
 public class LivingFacade : MonoBehaviour
 {
-    [SerializeField] protected int _maxHealth = 3;
-
     [SerializeField] private List<string> _layersToIgnore = new List<string>();
 
     [SerializeField] private string _myLayer;
@@ -27,8 +25,6 @@ public class LivingFacade : MonoBehaviour
     {
         _invulnerability = invulnerability;
         _physicalLayers = layers;
-
-        _health = new PoolableObjectHealth(_maxHealth);
     }
 
     private void Awake()

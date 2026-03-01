@@ -2,7 +2,7 @@ using System.IO;
 using UnityEngine;
 using Zenject;
 
-public class PoolableObjectFactory : IFactory<PoolableObject>
+public class PoolableObjectFactory
 {
     private DiContainer _container;
 
@@ -11,13 +11,13 @@ public class PoolableObjectFactory : IFactory<PoolableObject>
         _container = container;
     }
 
-    public virtual PoolableObject Create<Type>(PoolableObject poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Type : IObjectSettings
+    public virtual PoolableObject Create<Settings>(PoolableObject poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Settings : IObjectSettings
     {
         GameObject obj = _container.InstantiatePrefab(poolableObject.gameObject, spawnPoint, Quaternion.Euler(direction), null);
 
         var newObject = obj.GetComponent<PoolableObject>();
 
-        newObject.InitializeInfo(GetSettings<Type>(jsonName));
+        newObject.InitializeInfo(GetSettings<Settings>(jsonName));
 
         return newObject;
     }

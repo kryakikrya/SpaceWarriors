@@ -4,10 +4,10 @@ public class PlayerShooter
 {
     private const string JsonName = "BulletConfig.json";
 
-    private ObjectPool<PoolableBullet> _pool;
-    private PoolableBullet _bullet;
+    private ObjectPool<BulletPresentation> _pool;
+    private BulletPresentation _bullet;
 
-    public void Initialize(ObjectPool<PoolableBullet> pool, PoolableBullet bullet)
+    public void Initialize(ObjectPool<BulletPresentation> pool, BulletPresentation bullet)
     {
         _pool = pool;
         _bullet = bullet;

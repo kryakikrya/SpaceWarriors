@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class ObjectPool<T> : IObjectPool<T> where T : PoolableObject
+public class ObjectPool<T> where T : PoolableObject
 {
     [Inject] private ScoreRewardModel _scoreModel;
 

@@ -95,10 +95,10 @@ GameObject:
   - component: {fileID: 5752626252546146730}
   - component: {fileID: 381369841068228222}
   - component: {fileID: 8404322588157701426}
-  - component: {fileID: 9140109711583606832}
   - component: {fileID: 5978709660841071698}
   - component: {fileID: -4012584273819530980}
   - component: {fileID: 4643252826029705082}
+  - component: {fileID: 231908732087679759}
   m_Layer: 7
   m_Name: Fragment
   m_TagString: Untagged
@@ -192,20 +192,6 @@ MonoBehaviour:
   - Invulnerability Objects
   _myLayer: Fragment
   _movement: {fileID: 5978709660841071698}
---- !u!114 &9140109711583606832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1576405300562094049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa1e890733cd051458d72ef8b5489069, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _facade: {fileID: 8404322588157701426}
-  _type: 1
 --- !u!114 &5978709660841071698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +250,20 @@ MonoBehaviour:
   _maxSpeed: 0.3
   _mass: 1
   _inertionModifier: 2
+--- !u!114 &231908732087679759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576405300562094049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a2239f3c08a5c7429b6d3b2b4a5b895, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _facade: {fileID: 8404322588157701426}
+  _type: 1
 --- !u!1 &3660720974761678917
 GameObject:
   m_ObjectHideFlags: 0

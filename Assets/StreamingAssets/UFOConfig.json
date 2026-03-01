@@ -1,4 +1,5 @@
 {
+  "Health": 3,
   "Speed": 5,
   "DashCharingTime": 1,
   "DashSpeedModificator": 25,

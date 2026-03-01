@@ -47,6 +47,8 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<Dictionary<PoolableObjectType, int>>().FromInstance(_typeToReward.ToDictionary()).AsSingle();
 
         Container.Bind<PlayerParametersSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
+
+        Container.Bind<PlayerHealth>().AsSingle();
     }
 
     public override void Start()

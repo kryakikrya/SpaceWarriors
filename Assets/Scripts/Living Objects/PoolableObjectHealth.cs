@@ -1,7 +1,8 @@
 public class PoolableObjectHealth : Health
 {
-    public PoolableObjectHealth(int health) : base(health)
+    public PoolableObjectHealth(IObjectSettings settins) : base(settins)
     {
+
     }
 
     public override void Death()

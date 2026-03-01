@@ -180,7 +180,7 @@ public class LivingObjectPhysics : MonoBehaviour
         _rb.MovePosition(position);
     }
 
-    public virtual void Hit(RaycastHit2D hit)
+    public void Hit(RaycastHit2D hit)
     {
         if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
         {

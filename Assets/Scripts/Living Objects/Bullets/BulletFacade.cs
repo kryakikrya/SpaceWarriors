@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent (typeof(BulletPhysics))]
-public class BulletFacade : LivingFacade, INeedStartMove
+public class BulletFacade : PoolableObjectFacade, INeedStartMove
 {
     private const float Offset = -90;
 
@@ -10,7 +10,7 @@ public class BulletFacade : LivingFacade, INeedStartMove
 
     private BulletSettings _settings;
 
-    private PoolableBullet _poolMember;
+    private BulletPresentation _poolMember;
 
     [Inject]
     private void Construct(Invulnerability invulnerability, PhysicalLayers layers)
@@ -37,7 +37,7 @@ public class BulletFacade : LivingFacade, INeedStartMove
     {
         movement = new BulletMovement();
 
-        _poolMember = GetComponent<PoolableBullet>();
+        _poolMember = GetComponent<BulletPresentation>();
     }
 
     public void StartMove()
@@ -55,8 +55,6 @@ public class BulletFacade : LivingFacade, INeedStartMove
 
     private void Awake()
     {
-        _health = new PoolableObjectHealth(_maxHealth);
-
         _physics = GetComponent<LivingObjectPhysics>();
 
         _damageApplier = new DamageApplier(1);
