@@ -161,7 +161,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7020098811986859798}
   - component: {fileID: 3439108156654288547}
-  - component: {fileID: 6354686149875885615}
   - component: {fileID: 64040258078118175}
   - component: {fileID: 2250295458209450221}
   - component: {fileID: 261866817430619608}
@@ -217,24 +216,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6354686149875885615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3502933980865133749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a011900c983013245af2dbdfe4a4b34a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bounceReduction: 3
-  _minMovement: 0.001
-  _hitOffset: 0.01
-  _maxSpeed: 0.4
-  _mass: 50
-  _inertionModifier: 0
 --- !u!114 &64040258078118175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,7 +241,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df3b082ab811b84b8183e205e480197, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
   _layersToIgnore:
   - Invulnerability Objects
   - UFO

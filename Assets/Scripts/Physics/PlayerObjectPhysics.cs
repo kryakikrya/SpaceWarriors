@@ -9,9 +9,9 @@ public class PlayerObjectPhysics : LivingObjectPhysics
     {
         base.Perform();
 
-        _model.ChangeCoordinates(transform.position);
+        _model.ChangeCoordinates(_rb.transform.position);
 
-        _model.ChangeRotationAngle(transform.rotation.eulerAngles.z);
+        _model.ChangeRotationAngle(_rb.transform.rotation.eulerAngles.z);
 
         _model.ChangeVelocity(CurrentVelocity);
     }

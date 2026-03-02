@@ -22,21 +22,23 @@ public class UFOStrategyDash : IUFOMovementStrategy
 
     private bool _isDashing = false;
 
-    public async void Move(GameObject player, LivingObjectPhysics physics, float speed)
+    public async void Move(GameObject player, LivingFacade facade, float speed)
     {
         if (_isDashing == false)
         {
             _dashCount++;
 
-            await Dash(player, physics, speed);
+            await Dash(player, facade, speed);
 
             _isDashing = false;
         }
     }
 
-    private async UniTask Dash(GameObject player, LivingObjectPhysics physics, float speed)
+    private async UniTask Dash(GameObject player, LivingFacade facade, float speed)
     {
         _isDashing = true;
+
+        LivingObjectPhysics physics = facade.Physics;
 
         float oldMaxSpeed = physics.MaxSpeed;
 
@@ -44,7 +46,7 @@ public class UFOStrategyDash : IUFOMovementStrategy
 
         physics.ZeroVelocity();
 
-        Vector3 target = player.transform.position - physics.gameObject.transform.position;
+        Vector3 target = player.transform.position - facade.gameObject.transform.position;
 
         await UniTask.WaitForSeconds(_dashChargingTime);
 

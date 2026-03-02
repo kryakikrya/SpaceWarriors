@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 6910602453514341996}
   - component: {fileID: 2244617131652325317}
   - component: {fileID: 883877094259412237}
-  - component: {fileID: 5758290930420482207}
   - component: {fileID: 6427630823899799260}
   - component: {fileID: 2460898393334516481}
   m_Layer: 10
@@ -108,28 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f091d7a390642474c8720b8c6ca9a658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1
   _layersToIgnore:
   - Invulnerability Objects
   _myLayer: Default
---- !u!114 &5758290930420482207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 930747575576713875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3824d7ba5eebd949a53f23af28f2816, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bounceReduction: 5
-  _minMovement: 0.003
-  _hitOffset: 0.003
-  _maxSpeed: 5
-  _mass: 1
-  _inertionModifier: 1
 --- !u!70 &6427630823899799260
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

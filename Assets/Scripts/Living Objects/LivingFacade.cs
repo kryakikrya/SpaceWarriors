@@ -18,6 +18,8 @@ public class LivingFacade : MonoBehaviour
 
     protected DamageApplier _damageApplier;
 
+    public LivingObjectPhysics Physics => _physics;
+
     public Health Health => _health;
 
     [Inject]
@@ -29,8 +31,6 @@ public class LivingFacade : MonoBehaviour
 
     private void Awake()
     {
-        _physics = GetComponent<LivingObjectPhysics>();
-
         _damageApplier = new DamageApplier(1);
 
         DisableInvulnerability();
@@ -65,9 +65,11 @@ public class LivingFacade : MonoBehaviour
         _physics.Colliding -= DamageEnemy;
     }
 
-    private void DamageEnemy(LivingObjectPhysics physics)
+    private void DamageEnemy(RaycastHit2D hit)
     {
-        _damageApplier.ApplyDamage(physics.gameObject.GetComponent<LivingFacade>().Health);
+        _damageApplier.ApplyDamage(hit.rigidbody.gameObject.GetComponent<LivingFacade>().Health);
+
+        Physics.Bounce(hit, hit.rigidbody.GetComponent<LivingFacade>().Physics);
 
         _damageApplier.ApplyDamage(Health);
     }

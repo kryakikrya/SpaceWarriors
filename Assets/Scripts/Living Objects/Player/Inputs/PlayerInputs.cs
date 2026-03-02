@@ -1,16 +1,16 @@
 using Cysharp.Threading.Tasks;
-using System;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(LivingObjectPhysics))]
 public class PlayerInputs : MonoBehaviour
 {
+    [SerializeField] private LivingFacade _facade;
+
     private float _speed;
 
-    [Inject] private SignalBus _signalBus;
+    private SignalBus _signalBus;
 
-    [Inject] private IPlayerInputSource _inputSource;
+    private IPlayerInputSource _inputSource;
 
     private LivingObjectPhysics _physics;
 
@@ -18,9 +18,16 @@ public class PlayerInputs : MonoBehaviour
 
     public IPlayerInputSource Source => _inputSource;
 
+    [Inject]
+    public void Construct(SignalBus bus, IPlayerInputSource inputSource)
+    {
+        _signalBus = bus;
+        _inputSource = inputSource;
+    }
+
     private void Start()
     {
-        _physics = GetComponent<LivingObjectPhysics>();
+        _physics = _facade.Physics;
     }
 
     private void OnEnable()

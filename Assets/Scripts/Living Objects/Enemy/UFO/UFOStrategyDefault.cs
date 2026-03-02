@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class UFOStrategyDefault : IUFOMovementStrategy
 {
-    public void Move(GameObject player, LivingObjectPhysics physics, float speed)
+    public void Move(GameObject player, LivingFacade facade, float speed)
     {
-        Vector3 direction = player.transform.position - physics.gameObject.transform.position;
+        Vector3 direction = player.transform.position - facade.gameObject.transform.position;
 
-        physics.AddForce(direction, speed);
+        facade.Physics.AddForce(direction, speed);
     }
 }

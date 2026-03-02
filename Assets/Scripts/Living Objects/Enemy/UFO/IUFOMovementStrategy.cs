@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IUFOMovementStrategy
 {
-    public void Move(GameObject player, LivingObjectPhysics physics, float speed);
+    public void Move(GameObject player, LivingFacade facade, float speed);
 }

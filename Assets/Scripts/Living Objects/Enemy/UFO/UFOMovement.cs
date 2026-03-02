@@ -5,7 +5,7 @@ public class UFOMovement : MonoBehaviour
 {
     [Inject] private PlayerFacade _playerTarget;
 
-    private LivingObjectPhysics _physics;
+    private LivingFacade _facade;
 
     private float _speed;
 
@@ -27,7 +27,7 @@ public class UFOMovement : MonoBehaviour
 
     private void Start()
     {
-        _physics = GetComponent<LivingObjectPhysics>();
+        _facade = GetComponent<LivingFacade>();
 
         _movementStrategy = _strategyChanger.GetStrategy(transform, _playerTarget.transform);
     }
@@ -36,6 +36,6 @@ public class UFOMovement : MonoBehaviour
     {
         _movementStrategy = _strategyChanger.GetStrategy(transform, _playerTarget.transform);
 
-        _movementStrategy.Move(_playerTarget.gameObject, _physics, _speed);
+        _movementStrategy.Move(_playerTarget.gameObject, _facade, _speed);
     }
 }

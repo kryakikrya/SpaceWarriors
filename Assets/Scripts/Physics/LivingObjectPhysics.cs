@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using Zenject;
 
-[RequireComponent (typeof(Rigidbody2D))]
-public class LivingObjectPhysics : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+public class LivingObjectPhysics : IDisposable
 {
     [SerializeField] private float _bounceReduction = 2;
 
@@ -23,20 +24,27 @@ public class LivingObjectPhysics : MonoBehaviour
     protected Vector2 _frameMovementVector = Vector2.zero;
     protected Vector2 _velocity = Vector2.zero;
 
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
     private List<RaycastHit2D> _hits = null;
 
-    public Action<LivingObjectPhysics> Colliding;
+    private Collider2D[] _results = new Collider2D[8];
+
+    private Collider2D _myCollider;
+
+    public Action<RaycastHit2D> Colliding;
 
     public Vector2 CurrentVelocity => _velocity;
 
     public float MaxSpeed => _maxSpeed;
 
-    #region Initialization
-
-    private void Awake()
+    [Inject]
+    public void Construct(Rigidbody2D rb)
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = rb;
+
+        _myCollider = _rb.GetComponent<Collider2D>();
+        Debug.Log($"LivingObjectPhysics instanceId={GetHashCode()} rb={_rb} col={_myCollider}");
+
         _rb.bodyType = RigidbodyType2D.Kinematic;
 
         _hits = ListPool<RaycastHit2D>.Get();
@@ -44,38 +52,38 @@ public class LivingObjectPhysics : MonoBehaviour
         _rb.useFullKinematicContacts = true;
     }
 
-    private void OnDestroy()
+    public void Dispose()
     {
-        if ( _hits != null )
+        if (_hits != null)
         {
             ListPool<RaycastHit2D>.Release(_hits);
             _hits = null;
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) => CheckOverlap(collision);
-
-    private void OnCollisionStay2D(Collision2D collision) => CheckOverlap(collision);
-
-    #endregion
-
-    #region Movement Logic
+    public void Tick()
+    {
+        CheckOverlap();
+    }
 
     public virtual void AddForce(Vector2 direction, float speed)
     {
+        Debug.Log("Add force");
         direction = direction.normalized;
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
 
-    private void Bounce(Vector2 hit, LivingObjectPhysics other)
+    public void Bounce(RaycastHit2D other, LivingObjectPhysics physics)
     {
-        Vector2 otherVelocity = -hit / other._mass * _mass / other._bounceReduction * _velocity.magnitude;
+        Vector2 hit = other.normal.normalized;
+
+        Vector2 otherVelocity = -hit / physics._mass * _mass / physics._bounceReduction * _velocity.magnitude;
 
         otherVelocity = Vector2.ClampMagnitude(otherVelocity, Mathf.Log(otherVelocity.magnitude, 2));
 
-        other._velocity += otherVelocity;
+        physics._velocity += otherVelocity;
 
-        _velocity = Vector2.Reflect(_velocity, hit) * other._mass / _mass / _bounceReduction;
+        _velocity = Vector2.Reflect(_velocity, hit) * physics._mass / _mass / _bounceReduction;
 
         _velocity = Vector2.ClampMagnitude(_velocity, Mathf.Log(_velocity.magnitude, 2));
     }
@@ -108,18 +116,21 @@ public class LivingObjectPhysics : MonoBehaviour
         _maxSpeed = maxSpeed;
     }
 
-    private void CheckOverlap(Collision2D collision)
+    private void CheckOverlap()
     {
-        if (_collisionFilter.IsFilteringLayerMask(collision.collider.gameObject))
-        {
-            return;
-        }
+        Debug.Log($"CHECK instanceId={GetHashCode()} rb={_rb} col={_myCollider}");
+        int count = _myCollider.OverlapCollider(_collisionFilter, _results);
 
-        var colliderDistance = Physics2D.Distance(collision.otherCollider, collision.collider);
-
-        if (colliderDistance.isOverlapped)
+        for (int i = 0; i < count; i++)
         {
-            collision.otherRigidbody.position += colliderDistance.normal * colliderDistance.distance;
+            Collider2D other = _results[i];
+
+            var colliderDistance = Physics2D.Distance(other, _myCollider);
+
+            if (colliderDistance.isOverlapped)
+            {
+                other.attachedRigidbody.position += colliderDistance.normal * colliderDistance.distance;
+            }
         }
     }
 
@@ -142,7 +153,7 @@ public class LivingObjectPhysics : MonoBehaviour
     {
         var position = _rb.position;
 
-        while (iterationCount > 1 && distance > _minMovement && direction.sqrMagnitude > Mathf.Epsilon) 
+        while (iterationCount > 1 && distance > _minMovement && direction.sqrMagnitude > Mathf.Epsilon)
         {
             iterationCount--;
 
@@ -182,22 +193,11 @@ public class LivingObjectPhysics : MonoBehaviour
 
     public void Hit(RaycastHit2D hit)
     {
-        if (hit.rigidbody.gameObject.TryGetComponent(out LivingObjectPhysics physics))
-        {
-            Bounce(hit.normal.normalized, physics);
-
-            Colliding?.Invoke(physics);
-        }
+        Colliding?.Invoke(hit);
     }
-
-    #endregion
-
-    #region Filtering
 
     public void ChangeFilter(ContactFilter2D filter)
     {
         _collisionFilter = filter;
     }
-
-    #endregion
 }

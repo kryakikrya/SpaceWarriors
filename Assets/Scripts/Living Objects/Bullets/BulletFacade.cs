@@ -1,7 +1,6 @@
 using UnityEngine;
 using Zenject;
 
-[RequireComponent (typeof(BulletPhysics))]
 public class BulletFacade : PoolableObjectFacade, INeedStartMove
 {
     private const float Offset = -90;
