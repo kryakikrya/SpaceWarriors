@@ -1,6 +1,7 @@
 using System;
 using UnityEngine.SceneManagement;
 using YG;
+using Zenject;
 
 public class AdsController : IDisposable
 {
@@ -8,11 +9,12 @@ public class AdsController : IDisposable
 
     private PlayerFacade _playerFacade;
 
-    public AdsController(string menu, PlayerFacade facade)
+    [Inject]
+    public void Construct(GameSettings settings, PlayerFacade facade)
     {
         YG2.onCloseAnyAdv += ChangeScene;
 
-        _menuName = menu;
+        _menuName = settings.MenuName;
 
         _playerFacade = facade;
 

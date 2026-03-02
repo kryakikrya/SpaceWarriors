@@ -7,10 +7,8 @@ using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
 
-public class FirebaseDataSaver : MonoBehaviour
+public class FirebaseDataSaver : IInitializable, IDisposable
 {
-    public static FirebaseDataSaver instance;
-
     [Inject] private ScoreRewardModel _scoreRewardModel;
 
     private SessionData _data;
@@ -18,29 +16,25 @@ public class FirebaseDataSaver : MonoBehaviour
     private FirebaseAuth _auth;
     private FirebaseUser _user;
 
-    private void Awake()
+    public void Initialize()
     {
-        if (instance == null)
-        {
-            FirebaseAuth.DefaultInstance.StateChanged += HandleAuthStateChanged;
+        FirebaseAuth.DefaultInstance.StateChanged += HandleAuthStateChanged;
 
-            instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else
-        {
-            Destroy(this);
-        }
+        _scoreRewardModel.Score.OnChanged += ChangeLastScore;
+
+        CheckUser();
     }
 
     private void OnEnable()
     {
-        _scoreRewardModel.Score.OnChanged += ChangeRecordScore;
+        _scoreRewardModel.Score.OnChanged += ChangeLastScore;
     }
 
-    private void OnDisable()
+    public void Dispose()
     {
-        _scoreRewardModel.Score.OnChanged -= ChangeRecordScore;
+        _scoreRewardModel.Score.OnChanged -= ChangeLastScore;
+
+        FirebaseAuth.DefaultInstance.StateChanged -= HandleAuthStateChanged;
     }
 
     private void OnSignedIn(Task<FirebaseUser> signInTask)
@@ -111,12 +105,9 @@ public class FirebaseDataSaver : MonoBehaviour
         }
     }
 
-    public void ChangeRecordScore(int score)
+    public void ChangeLastScore(int score)
     {
-        if (_data.Score < score)
-        {
-            _data.Score = score;
-        }
+        _data.Score = score;
 
         SaveCurrentSession();
     }

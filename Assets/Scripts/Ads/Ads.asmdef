@@ -4,7 +4,8 @@
     "references": [
         "YG",
         "LivingObjects",
-        "Model"
+        "Model",
+        "Configs"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

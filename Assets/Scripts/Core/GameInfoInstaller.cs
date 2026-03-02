@@ -6,8 +6,6 @@ using System.IO;
 
 public class GameInfoInstaller : MonoInstaller
 {
-    [SerializeField] private string _menuName = "Menu";
-
     [SerializeField] private string _invulnerabilityLayer;
     [SerializeField] private string _defaultLayer;
     [SerializeField] private string _wrappingLayer;
@@ -49,12 +47,10 @@ public class GameInfoInstaller : MonoInstaller
         Container.Bind<PlayerParametersSettings>().FromInstance(GetSettings(_playerJSON)).AsSingle();
 
         Container.Bind<PlayerHealth>().AsSingle();
-    }
 
-    public override void Start()
-    {
-        base.Start();
-        AdsController ads = new AdsController(_menuName, _player);
+        Container.Bind<AdsController>().AsSingle().NonLazy();
+
+        Container.BindInterfacesTo<FirebaseDataSaver>().AsSingle().NonLazy();
     }
 
     public PlayerParametersSettings GetSettings(string jsonName)
