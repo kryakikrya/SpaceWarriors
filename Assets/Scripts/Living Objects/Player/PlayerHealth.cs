@@ -4,20 +4,16 @@ public class PlayerHealth : Health
 {
     private SignalBus _signalBus;
 
-    private Invulnerability _invulnerability;
-
     private float _invulnerabilityTime;
 
     private PlayerHealthModel _healthModel;
 
     public PlayerHealthModel Model => _healthModel;
 
-    public PlayerHealth(PlayerParametersSettings settings, Invulnerability invulnerability, SignalBus signalBus) : base(settings)
+    public PlayerHealth(PlayerParametersSettings settings, SignalBus signalBus) : base(settings)
     {
         _health = settings.Health;
         _maxHealth = settings.Health;
-
-        _invulnerability = invulnerability;
 
         _invulnerabilityTime = settings.InvulnerabilityTime;
         _signalBus = signalBus;

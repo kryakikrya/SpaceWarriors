@@ -103,7 +103,7 @@ public class FirebaseDataSaver : IInitializable, IDisposable
             });
         }
     }
-    
+
     private void ParseUserData(DataSnapshot snapshot)
     {
         var json = snapshot.GetRawJsonValue();

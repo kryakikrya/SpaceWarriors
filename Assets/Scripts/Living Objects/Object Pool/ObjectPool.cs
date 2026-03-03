@@ -1,17 +1,8 @@
 using System.Collections.Generic;
-using Zenject;
 
 public class ObjectPool<T> where T : PoolableObject
 {
-    private ObjectSettingsProvider _provider;
-
     public List<T> Objects { get; private set; } = new List<T>();
-
-    [Inject]
-    private void Construct(ObjectSettingsProvider provider)
-    {
-        _provider = provider;
-    }
 
     public bool Get(out PoolableObject objectToReturn)
     {

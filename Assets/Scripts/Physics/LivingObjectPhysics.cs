@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class LivingObjectPhysics
 {
     public Action<RaycastHit2D> Colliding;
