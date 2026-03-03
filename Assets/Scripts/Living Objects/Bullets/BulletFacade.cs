@@ -38,13 +38,6 @@ public class BulletFacade : PoolableObjectFacade, INeedStartMove
         _physics.Initialize(GetComponent<Rigidbody2D>(), _physicsConfig);
     }
 
-    private void FindComponents()
-    {
-        movement = new BulletMovement();
-
-        _poolMember = GetComponent<BulletPresentation>();
-    }
-
     public void StartMove()
     {
         float z = (transform.eulerAngles.z + Offset) * Mathf.Deg2Rad;
@@ -63,5 +56,12 @@ public class BulletFacade : PoolableObjectFacade, INeedStartMove
         base.Death();
 
         _poolMember.Death();
+    }
+
+    private void FindComponents()
+    {
+        movement = new BulletMovement();
+
+        _poolMember = GetComponent<BulletPresentation>();
     }
 }

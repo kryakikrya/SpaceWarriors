@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerLaser : MonoBehaviour
 {
+    public Action<int> OnLaserSpend;
+
     [SerializeField] private GameObject _laserVisual;
     [SerializeField] private GameObject _laserOrigin;
     [SerializeField] private GameObject _laserDirection;
@@ -25,8 +27,6 @@ public class PlayerLaser : MonoBehaviour
     private DamageApplier _applier;
 
     private bool _isShooting = false;
-
-    public Action<int> OnLaserSpend;
 
     private LaserInformationModel _model = new LaserInformationModel();
 

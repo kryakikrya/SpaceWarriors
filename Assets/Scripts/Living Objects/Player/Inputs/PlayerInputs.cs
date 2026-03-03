@@ -19,7 +19,7 @@ public class PlayerInputs : MonoBehaviour
     public IPlayerInputSource Source => _inputSource;
 
     [Inject]
-    public void Construct(SignalBus bus, IPlayerInputSource inputSource)
+    private void Construct(SignalBus bus, IPlayerInputSource inputSource)
     {
         _signalBus = bus;
         _inputSource = inputSource;
@@ -35,11 +35,6 @@ public class PlayerInputs : MonoBehaviour
         _signalBus.Subscribe<PlayerDamagedSignal>(OnDamaged);
     }
 
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
-
     private void Update()
     {
         if (_canControl == false)
@@ -51,6 +46,11 @@ public class PlayerInputs : MonoBehaviour
         Vector2 movement = _inputSource.Movement;
 
         _physics.AddForce(movement, _speed);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
     }
 
     private async void OnDamaged(PlayerDamagedSignal signal)

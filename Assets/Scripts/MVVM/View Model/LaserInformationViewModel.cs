@@ -1,10 +1,10 @@
 public class LaserInformationViewModel : IViewModel
 {
-    private LaserInformationModel _model;
-
     public ReactiveProperty<int> LaserCharges = new ReactiveProperty<int>();
 
     public ReactiveProperty<float> LaserCD = new ReactiveProperty<float>();
+
+    private LaserInformationModel _model;
 
     public LaserInformationViewModel(LaserInformationModel model)
     {
@@ -22,6 +22,12 @@ public class LaserInformationViewModel : IViewModel
         _model.CurrentCD.OnChanged += OnModelLaserCDChanged;
     }
 
+    public void Dispose()
+    {
+        _model.CurrentCharges.OnChanged -= OnModelLaserChargesChanged;
+        _model.CurrentCD.OnChanged -= OnModelLaserCDChanged;
+    }
+
     private void OnModelLaserChargesChanged(int newValue)
     {
         LaserCharges.Value = newValue;
@@ -30,11 +36,5 @@ public class LaserInformationViewModel : IViewModel
     private void OnModelLaserCDChanged(float newValue)
     {
         LaserCD.Value = newValue;
-    }
-
-    public void Dispose()
-    {
-        _model.CurrentCharges.OnChanged -= OnModelLaserChargesChanged;
-        _model.CurrentCD.OnChanged -= OnModelLaserCDChanged;
     }
 }

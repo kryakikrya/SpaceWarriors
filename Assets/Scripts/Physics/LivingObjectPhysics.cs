@@ -6,6 +6,13 @@ using UnityEngine.Pool;
 [RequireComponent(typeof(Rigidbody2D))]
 public class LivingObjectPhysics
 {
+    public Action<RaycastHit2D> Colliding;
+
+    protected Vector2 _frameMovementVector = Vector2.zero;
+    protected Vector2 _velocity = Vector2.zero;
+
+    protected Rigidbody2D _rb;
+
     private float _bounceReduction = 2;
 
     private const int MaxChangesInOneMovement = 3;
@@ -20,17 +27,11 @@ public class LivingObjectPhysics
     private float _mass = 1f;
     private float _inertionModifier = 5f;
 
-    protected Vector2 _frameMovementVector = Vector2.zero;
-    protected Vector2 _velocity = Vector2.zero;
-
-    protected Rigidbody2D _rb;
     private List<RaycastHit2D> _hits = null;
 
     private Collider2D[] _results = new Collider2D[8];
 
     private Collider2D _myCollider;
-
-    public Action<RaycastHit2D> Colliding;
 
     public Vector2 CurrentVelocity => _velocity;
 
@@ -103,6 +104,16 @@ public class LivingObjectPhysics
         Perform();
     }
 
+    public void Hit(RaycastHit2D hit)
+    {
+        Colliding?.Invoke(hit);
+    }
+
+    public void ChangeFilter(ContactFilter2D filter)
+    {
+        _collisionFilter = filter;
+    }
+
     public virtual void Perform()
     {
         float delta = Time.fixedDeltaTime;
@@ -117,6 +128,21 @@ public class LivingObjectPhysics
     public void SetMaxSpeed(float maxSpeed)
     {
         _maxSpeed = maxSpeed;
+    }
+
+    protected void Move()
+    {
+        _velocity = Vector2.ClampMagnitude(_velocity, _maxSpeed);
+
+        if (_velocity.sqrMagnitude <= Mathf.Epsilon)
+        {
+            return;
+        }
+
+        var vectorDirection = _velocity.normalized;
+        var vectorLength = _velocity.magnitude;
+
+        CompleteTheDistance(MaxChangesInOneMovement, vectorLength, vectorDirection);
     }
 
     private void CheckOverlap()
@@ -134,21 +160,6 @@ public class LivingObjectPhysics
                 other.attachedRigidbody.position += colliderDistance.normal * colliderDistance.distance;
             }
         }
-    }
-
-    protected void Move()
-    {
-        _velocity = Vector2.ClampMagnitude(_velocity, _maxSpeed);
-
-        if (_velocity.sqrMagnitude <= Mathf.Epsilon)
-        {
-            return;
-        }
-
-        var vectorDirection = _velocity.normalized;
-        var vectorLength = _velocity.magnitude;
-
-        CompleteTheDistance(MaxChangesInOneMovement, vectorLength, vectorDirection);
     }
 
     private void CompleteTheDistance(int iterationCount, float distance, Vector2 direction)
@@ -191,15 +202,5 @@ public class LivingObjectPhysics
         }
 
         _rb.MovePosition(position);
-    }
-
-    public void Hit(RaycastHit2D hit)
-    {
-        Colliding?.Invoke(hit);
-    }
-
-    public void ChangeFilter(ContactFilter2D filter)
-    {
-        _collisionFilter = filter;
     }
 }

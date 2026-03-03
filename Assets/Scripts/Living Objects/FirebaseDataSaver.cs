@@ -25,11 +25,6 @@ public class FirebaseDataSaver : IInitializable, IDisposable
         CheckUser();
     }
 
-    private void OnEnable()
-    {
-        _scoreRewardModel.Score.OnChanged += ChangeLastScore;
-    }
-
     public void Dispose()
     {
         _scoreRewardModel.Score.OnChanged -= ChangeLastScore;
@@ -47,6 +42,26 @@ public class FirebaseDataSaver : IInitializable, IDisposable
 
         var reference = FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}");
         reference.ValueChanged += OnUsersDataChanged;
+    }
+
+    public void ChangeLastScore(int score)
+    {
+        _data.Score = score;
+
+        SaveCurrentSession();
+    }
+
+    public void SaveCurrentSession()
+    {
+        var jsonNewUser = JsonConvert.SerializeObject(_data);
+
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}").SetRawJsonValueAsync(jsonNewUser).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.Log("Error");
+            }
+        });
     }
 
     private void OnUsersDataChanged(object sender, ValueChangedEventArgs args)
@@ -103,25 +118,5 @@ public class FirebaseDataSaver : IInitializable, IDisposable
 
             SaveCurrentSession();
         }
-    }
-
-    public void ChangeLastScore(int score)
-    {
-        _data.Score = score;
-
-        SaveCurrentSession();
-    }
-
-    public void SaveCurrentSession()
-    {
-        var jsonNewUser = JsonConvert.SerializeObject(_data);
-
-        FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}").SetRawJsonValueAsync(jsonNewUser).ContinueWithOnMainThread(task =>
-        {
-            if (task.IsFaulted || task.IsCanceled)
-            {
-                Debug.Log("Error");
-            }
-        });
     }
 }

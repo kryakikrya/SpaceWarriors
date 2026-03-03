@@ -1,9 +1,5 @@
-using Zenject;
-
 public class FragmentPresentation : PoolableObject
 {
-    [Inject] private ObjectPool<FragmentPresentation> _fragmentPool;
-
     public override void InitializeInfo(IObjectSettings settings)
     {
         if (settings is FragmentSettings)
@@ -15,7 +11,6 @@ public class FragmentPresentation : PoolableObject
 
     public override void Death()
     {
-        _fragmentPool.MakeObjectUnavailable(this);
         gameObject.SetActive(false);
     }
 }

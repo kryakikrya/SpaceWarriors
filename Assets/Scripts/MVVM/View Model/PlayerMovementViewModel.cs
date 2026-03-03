@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class PlayerMovementViewModel : IViewModel
 {
-    private PlayerMovementModel _model;
-
     public ReactiveProperty<Vector2> Coordinates { get; private set; } = new ReactiveProperty<Vector2>();
 
     public ReactiveProperty<float> RotationAngle { get; private set; } = new ReactiveProperty<float>();
 
     public ReactiveProperty<Vector2> Velocity { get; private set; } = new ReactiveProperty<Vector2>();
+
+    private PlayerMovementModel _model;
 
     public PlayerMovementViewModel(PlayerMovementModel model)
     {
@@ -29,6 +29,13 @@ public class PlayerMovementViewModel : IViewModel
         _model.Velocity.OnChanged += OnModelVelocityChanged;
     }
 
+    public void Dispose()
+    {
+        _model.Coordinates.OnChanged -= OnModelCoordinatesChanged;
+        _model.RotationAngle.OnChanged -= OnModelRotationAngleChanged;
+        _model.Velocity.OnChanged -= OnModelVelocityChanged;
+    }
+
     private void OnModelCoordinatesChanged(Vector2 newValue)
     {
         Coordinates.Value = newValue;
@@ -42,12 +49,5 @@ public class PlayerMovementViewModel : IViewModel
     private void OnModelVelocityChanged(Vector2 newValue)
     {
         Velocity.Value = newValue;
-    }
-
-    public void Dispose()
-    {
-        _model.Coordinates.OnChanged -= OnModelCoordinatesChanged;
-        _model.RotationAngle.OnChanged -= OnModelRotationAngleChanged;
-        _model.Velocity.OnChanged -= OnModelVelocityChanged;
     }
 }

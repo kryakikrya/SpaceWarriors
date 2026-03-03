@@ -49,6 +49,21 @@ public class LivingFacade : MonoBehaviour
         }
     }
 
+    public void EnableInvulnerability()
+    {
+        _physics.ChangeFilter(_invulnerability.EnableInvulnerability(gameObject, _physicalLayers.InvulnerabilityLayer));
+    }
+
+    public void DisableInvulnerability()
+    {
+        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _myLayer, _layersToIgnore));
+    }
+
+    public virtual void Death()
+    {
+        Debug.Log($"{name} was killed!");
+    }
+
     private void OnEnable()
     {
         Enable();
@@ -76,14 +91,14 @@ public class LivingFacade : MonoBehaviour
         _physics.Colliding += DamageEnemy;
     }
 
-    private void OnDisable()
-    {
-        Disable();
-    }
-
     protected virtual void Disable()
     {
         _physics.Colliding -= DamageEnemy;
+    }
+
+    private void OnDisable()
+    {
+        Disable();
     }
 
     private void DamageEnemy(RaycastHit2D hit)
@@ -93,20 +108,5 @@ public class LivingFacade : MonoBehaviour
         Physics.Bounce(hit, hit.rigidbody.GetComponent<LivingFacade>().Physics);
 
         _damageApplier.ApplyDamage(Health);
-    }
-
-    public void EnableInvulnerability()
-    {
-        _physics.ChangeFilter(_invulnerability.EnableInvulnerability(gameObject, _physicalLayers.InvulnerabilityLayer));
-    }
-
-    public void DisableInvulnerability()
-    {
-        _physics.ChangeFilter(_invulnerability.DisableInvulnerability(gameObject, _myLayer, _layersToIgnore));
-    }
-
-    public virtual void Death()
-    {
-        Debug.Log($"{name} was killed!");
     }
 }

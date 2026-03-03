@@ -9,6 +9,8 @@ public class UFOStrategyDash : IUFOMovementStrategy
 
     private int _dashCount = 0;
 
+    private bool _isDashing = false;
+
     public bool IsDashing => _isDashing;
 
     public int DashCount => _dashCount;
@@ -20,7 +22,10 @@ public class UFOStrategyDash : IUFOMovementStrategy
         _maxSpeedModificator = maxSpeed;
     }
 
-    private bool _isDashing = false;
+    public void ZeroingCount()
+    {
+        _dashCount = 0;
+    }
 
     public async void Move(GameObject player, LivingFacade facade, float speed)
     {
@@ -58,10 +63,5 @@ public class UFOStrategyDash : IUFOMovementStrategy
         }
 
         physics.SetMaxSpeed(oldMaxSpeed);
-    }
-
-    public void ZeroingCount()
-    {
-        _dashCount = 0;
     }
 }

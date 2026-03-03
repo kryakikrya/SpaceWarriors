@@ -6,14 +6,21 @@ public class InterfaceBinder : MonoBehaviour
     [SerializeField] private PlayerHealthView _healthView;
     [SerializeField] private PlayerFacade _facade;
 
-    private  PlayerObjectPhysics _physics;
     [SerializeField] private PlayerMovementView _movementView;
 
     [SerializeField] private PlayerLaser _laser;
     [SerializeField] private LaserInformationView _laserView;
 
-    [Inject] private ScoreRewardModel _scoreRewardModel;
     [SerializeField] private ScoreView _scoreView;
+
+    private PlayerObjectPhysics _physics;
+    private ScoreRewardModel _scoreRewardModel;
+
+    [Inject]
+    private void Construct(ScoreRewardModel scoreRewardModel)
+    {
+        _scoreRewardModel = scoreRewardModel;
+    }
 
     private void Start()
     {

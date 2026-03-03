@@ -13,18 +13,6 @@ public class UFOMovement : MonoBehaviour
 
     private UFOStrategyChanger _strategyChanger;
 
-    public void InitializeInfo(UFOSettings settings)
-    {
-        _strategyChanger = new UFOStrategyChanger(settings);
-
-        _speed = settings.Speed;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        _speed = speed;
-    }
-
     private void Start()
     {
         _facade = GetComponent<LivingFacade>();
@@ -37,5 +25,17 @@ public class UFOMovement : MonoBehaviour
         _movementStrategy = _strategyChanger.GetStrategy(transform, _playerTarget.transform);
 
         _movementStrategy.Move(_playerTarget.gameObject, _facade, _speed);
+    }
+
+    public void InitializeInfo(UFOSettings settings)
+    {
+        _strategyChanger = new UFOStrategyChanger(settings);
+
+        _speed = settings.Speed;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        _speed = speed;
     }
 }

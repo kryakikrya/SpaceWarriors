@@ -27,8 +27,8 @@ public class FragmentFacade : PoolableObjectFacade, INeedStartMove
 
             _health.HealToMax();
 
-            FragmentVisual visual = new FragmentVisual();
-            await visual.FireTask(_cts.Token, transform, _settings.FireTime);
+            FragmentFire fire = new FragmentFire();
+            await fire.FireTask(_cts.Token, transform, _settings.FireTime);
 
             if (gameObject.activeSelf == true)
             {

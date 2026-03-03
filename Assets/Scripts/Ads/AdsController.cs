@@ -10,9 +10,9 @@ public class AdsController : IDisposable
     private PlayerFacade _playerFacade;
 
     [Inject]
-    public void Construct(GameSettings settings, PlayerFacade facade)
+    private void Construct(GameSettings settings, PlayerFacade facade)
     {
-        YG2.onCloseAnyAdv += ChangeScene;
+        YG2.onOpenAnyAdv += ChangeScene;
 
         _menuName = settings.MenuName;
 

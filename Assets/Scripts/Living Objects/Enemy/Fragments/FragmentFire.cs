@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 
-public class FragmentVisual
+public class FragmentFire
 {
     private float _duration;
 

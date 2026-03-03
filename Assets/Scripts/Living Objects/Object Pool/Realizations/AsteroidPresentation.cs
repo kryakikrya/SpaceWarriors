@@ -8,13 +8,19 @@ public class AsteroidPresentation : PoolableObject
     [SerializeField] private Transform[] _spawnpoint;
     [SerializeField] private float _fragmentRotateOffset = 10f;
 
-    [Inject] private ObjectPool<AsteroidPresentation> _asteroidPool;
-
-    [Inject] private ObjectPool<FragmentPresentation> _fragmentPool;
-
-    private const string JsonName = "FragmentConfig.json";
-
     [SerializeField] private FragmentPresentation _fragment;
+
+    private PoolableObjectFactory<FragmentPresentation> _fragmentFactory;
+
+    private ObjectSettingsProvider _settingsProvider;
+
+    [Inject]
+    private void Construct(PoolableObjectFactory<FragmentPresentation> fragmentFactory, ObjectSettingsProvider provider)
+    {
+        _fragmentFactory = fragmentFactory;
+
+        _settingsProvider = provider;
+    }
 
     public override void InitializeInfo(IObjectSettings settings)
     {
@@ -27,6 +33,8 @@ public class AsteroidPresentation : PoolableObject
 
     public override void Death()
     {
+        base.Death();
+
         int rnd = Random.Range(_minFragmentsCount, _maxFragmentsCount);
 
         if (_spawnpoint.Length < _maxFragmentsCount)
@@ -36,14 +44,17 @@ public class AsteroidPresentation : PoolableObject
 
         for (int i = 0; i < rnd; i++)
         {
-            FragmentPresentation fragment = _fragmentPool.GetAvailableObject<FragmentSettings>(_fragment, JsonName, _spawnpoint[i].position, new Vector3 (0, 0, Random.Range(0, 360f)));
+            PoolableObject fragment = _fragmentFactory.Create(_fragment);
+
+            fragment.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360f)));
+            fragment.transform.position = _spawnpoint[i].position;
+            fragment.InitializeInfo(_settingsProvider.Get<FragmentPresentation>());
 
             Vector2 velocity = GetComponent<AsteroidsFacade>().Physics.CurrentVelocity;
 
             fragment.GetComponent<AsteroidMovement>().StartMovement(new Vector2 (velocity.x + Random.Range(-_fragmentRotateOffset, _fragmentRotateOffset), velocity.y + Random.Range(-_fragmentRotateOffset, _fragmentRotateOffset)));
         }
 
-        _asteroidPool.MakeObjectUnavailable(this);
         gameObject.SetActive(false);
     }
 }

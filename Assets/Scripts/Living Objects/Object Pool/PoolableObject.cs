@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 public abstract class PoolableObject : MonoBehaviour
 {
     [SerializeField] private PoolableObjectFacade _facade;
@@ -7,11 +8,14 @@ public abstract class PoolableObject : MonoBehaviour
 
     protected PoolableObjectHealth _health;
 
+    private ScoreRewardModel _rewardModel;
+
     public PoolableObjectType Type => _type;
 
-    private void OnDestroy()
+    [Inject]
+    private void Construct(ScoreRewardModel model)
     {
-        _health.OnObjectDeath -= Death;
+        _rewardModel = model;
     }
 
     public virtual void InitializeInfo(IObjectSettings settings)
@@ -23,5 +27,8 @@ public abstract class PoolableObject : MonoBehaviour
         _health.OnObjectDeath += Death;
     }
 
-    public abstract void Death();
+    public virtual void Death()
+    {
+        _rewardModel.AddScore(Type);
+    }
 }

@@ -23,11 +23,11 @@ public class PlayerFacade : LivingFacade
     private InvulnerabilityVisual _invulnerabilityVisual;
 
     [Inject]
-    public void Construct(BulletPresentation bullet, ObjectPool<BulletPresentation> pool, PoolableObjectFactory factory, Invulnerability invulnerability, SignalBus bus, PlayerParametersSettings settings, PlayerHealth health)
+    private void Construct(BulletPresentation bullet, PoolableObjectFactory<BulletPresentation> factory, Invulnerability invulnerability, SignalBus bus, PlayerParametersSettings settings, PlayerHealth health, ObjectSettingsProvider provider)
     {
         _shooter = new PlayerShooter();
 
-        _shooter.Initialize(pool, bullet);
+        _shooter.Initialize(factory, bullet, provider);
 
         _invulnerability = invulnerability;
 
@@ -36,14 +36,6 @@ public class PlayerFacade : LivingFacade
         _health = health;
 
         SetSettings(settings);
-    }
-
-    private void SetSettings(PlayerParametersSettings settings)
-    {
-        _inputs.SetSpeed(settings.Speed);
-
-        _laser.SetSettings(settings.MaxLasers, settings.LaserCD, settings.LaserTime, settings.LaserDamagePerRate, settings.DamageRate);
-        _rotator.SetRotationSpeed(settings.RotationSpeed);
     }
 
     public override void InitializePhysics()
@@ -96,5 +88,13 @@ public class PlayerFacade : LivingFacade
     private async UniTask InvulnerabilityCD(float time)
     {
         await UniTask.WaitForSeconds(time);
+    }
+
+    private void SetSettings(PlayerParametersSettings settings)
+    {
+        _inputs.SetSpeed(settings.Speed);
+
+        _laser.SetSettings(settings.MaxLasers, settings.LaserCD, settings.LaserTime, settings.LaserDamagePerRate, settings.DamageRate);
+        _rotator.SetRotationSpeed(settings.RotationSpeed);
     }
 }

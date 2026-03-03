@@ -12,6 +12,18 @@ public class AsteroidMovement : MonoBehaviour
 
     private Vector2 _lastFrameVelocity;
 
+    private void Update()
+    {
+        if (_physics.CurrentVelocity.magnitude < _minSpeed)
+        {
+            _physics.AddForce(_lastFrameVelocity, 1);
+        }
+        else
+        {
+            _lastFrameVelocity = _physics.CurrentVelocity;
+        }
+    }
+
     public void SetSpeed(float speed)
     {
         _speed = speed;
@@ -28,17 +40,5 @@ public class AsteroidMovement : MonoBehaviour
         _physics.AddForce(startVelocity.normalized, startVelocity.magnitude);
 
         _lastFrameVelocity = startVelocity;
-    }
-
-    private void Update()
-    {
-        if (_physics.CurrentVelocity.magnitude < _minSpeed)
-        {
-            _physics.AddForce(_lastFrameVelocity, 1);
-        }
-        else
-        {
-            _lastFrameVelocity = _physics.CurrentVelocity;
-        }
     }
 }

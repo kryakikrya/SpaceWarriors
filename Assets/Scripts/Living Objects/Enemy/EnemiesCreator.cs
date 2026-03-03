@@ -3,9 +3,6 @@ using Zenject;
 
 public class EnemiesCreator : MonoBehaviour
 {
-    private const string AsteroidJsonName = "AsteroidConfig.json";
-    private const string UFOJsonName = "UFOConfig.json";
-
     private const float DefaultCameraSize = 5;
 
     [SerializeField] private AsteroidPresentation _asteroid;
@@ -13,7 +10,6 @@ public class EnemiesCreator : MonoBehaviour
 
     [SerializeField] private float _enemiesRate = 3f;
     [SerializeField] private float _rateRandomOffset = 0.5f;
-    private float _stepTime;
 
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private Transform _player;
@@ -22,13 +18,20 @@ public class EnemiesCreator : MonoBehaviour
 
     private float _currentTime = 0;
 
-    private PoolableObjectFactory _factory;
+    private float _stepTime;
+
+    private PoolableObjectFactory<UFOPresentation> _UFOfactory;
+    private PoolableObjectFactory<AsteroidPresentation> _asteroidFactory;
+
+    private ObjectSettingsProvider _provider;
 
     [Inject]
-    private void Costruct(GameSettings settings, PoolableObjectFactory factory)
+    private void Costruct(GameSettings settings, PoolableObjectFactory<UFOPresentation> UFOFactory, PoolableObjectFactory<AsteroidPresentation> asteroidFactory, ObjectSettingsProvider provider)
     {
         _settings = settings;
-        _factory = factory;
+        _UFOfactory = UFOFactory;
+        _asteroidFactory = asteroidFactory;
+        _provider = provider;
     }
 
     private void Start()
@@ -39,11 +42,6 @@ public class EnemiesCreator : MonoBehaviour
         }
 
         RandomTime();
-    }
-
-    private void RandomTime()
-    {
-        _stepTime = _enemiesRate + Random.Range(-_rateRandomOffset, _rateRandomOffset);
     }
 
     private void Update()
@@ -73,15 +71,27 @@ public class EnemiesCreator : MonoBehaviour
         }
     }
 
+    private void RandomTime()
+    {
+        _stepTime = _enemiesRate + Random.Range(-_rateRandomOffset, _rateRandomOffset);
+    }
+
     private void SpawnAsteroid(int rnd, Vector3 directionToTarget)
     {
-        PoolableObject asteroid = _factory.Create<AsteroidSettings>(_asteroid, AsteroidJsonName, _spawnPoints[rnd].position, directionToTarget);
+        PoolableObject asteroid = _asteroidFactory.Create(_asteroid);
+
+        asteroid.transform.position = _spawnPoints[rnd].position;
+        asteroid.transform.rotation = Quaternion.Euler(directionToTarget);
+        asteroid.InitializeInfo(_provider.Get<AsteroidPresentation>());
 
         asteroid.GetComponent<AsteroidMovement>().StartMovement(directionToTarget);
     }
 
     private void SpawnUFO(int rnd)
     {
-        _factory.Create<UFOSettings>(_UFO, UFOJsonName, _spawnPoints[rnd].position, Vector3.zero);
+        PoolableObject ufo = _UFOfactory.Create(_UFO);
+
+        ufo.transform.position = _spawnPoints[rnd].position;
+        ufo.InitializeInfo(_provider.Get<UFOPresentation>());
     }
 }

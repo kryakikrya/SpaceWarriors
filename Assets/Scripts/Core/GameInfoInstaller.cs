@@ -53,6 +53,8 @@ public class GameInfoInstaller : MonoInstaller
         Container.BindInterfacesTo<FirebaseDataSaver>().AsSingle().NonLazy();
 
         Container.BindInterfacesAndSelfTo<PhysicsResolver>().AsSingle().NonLazy();
+
+        Container.Bind<ScoreRewardModel>().AsSingle();
     }
 
     public PlayerParametersSettings GetSettings(string jsonName)

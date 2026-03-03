@@ -9,6 +9,6 @@ public class DamageApplier
 
     public void ApplyDamage(Health health)
     {
-        health.TakeDamage(_damage);
+        health?.TakeDamage(_damage);
     }
 }

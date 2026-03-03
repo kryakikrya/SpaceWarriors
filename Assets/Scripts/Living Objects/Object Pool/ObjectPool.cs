@@ -1,54 +1,47 @@
 using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 public class ObjectPool<T> where T : PoolableObject
 {
-    [Inject] private ScoreRewardModel _scoreModel;
+    private ObjectSettingsProvider _provider;
 
-    protected PoolableObjectFactory _factory;
+    public List<T> Objects { get; private set; } = new List<T>();
 
-    public List<T> AvailableObjects { get; private set; } = new List<T>();
-
-    public List<T> UnavailableObjects { get; private set; } = new List<T>();
-
-    public ObjectPool (PoolableObjectFactory factory)
+    [Inject]
+    private void Construct(ObjectSettingsProvider provider)
     {
-        _factory = factory;
+        _provider = provider;
     }
 
-    public void MakeObjectUnavailable(T obj)
+    public bool Get(out PoolableObject objectToReturn)
     {
-        AvailableObjects.Add(obj);
-        UnavailableObjects.Remove(obj);
+        objectToReturn = UpdateLists();
 
-        _scoreModel.AddScore(obj.Type);
-    }
-
-    public T GetAvailableObject<Settings>(T poolableObject, string jsonName, Vector3 spawnPoint, Vector3 direction) where Settings : IObjectSettings
-    {
-        PoolableObject objectToReturn;
-
-        if (AvailableObjects.Count == 0)
+        if (objectToReturn != null)
         {
-            objectToReturn = _factory.Create<Settings>(poolableObject, jsonName, spawnPoint, direction);
-        }
-        else
-        {
-            objectToReturn = AvailableObjects[0];
-
-            AvailableObjects.RemoveAt(0);
-
-            objectToReturn.transform.position = spawnPoint;
-            objectToReturn.transform.rotation = Quaternion.Euler(direction);
-
             objectToReturn.gameObject.SetActive(true);
 
-            objectToReturn.InitializeInfo(_factory.GetSettings<Settings>(jsonName));
+            return true;
         }
 
-        UnavailableObjects.Add((T)objectToReturn);
+        return false;
+    }
 
-        return (T)objectToReturn;
+    public void AddObject(T obj)
+    {
+        Objects.Add(obj);
+    }
+
+    private PoolableObject UpdateLists()
+    {
+        foreach (var obj in Objects)
+        {
+            if (obj.gameObject.activeSelf == false)
+            {
+                return obj;
+            }
+        }
+
+        return null;
     }
 }

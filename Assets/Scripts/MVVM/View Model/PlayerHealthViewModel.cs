@@ -1,11 +1,11 @@
 public class PlayerHealthViewModel : IViewModel
 {
-    private PlayerHealthModel _model; 
-
     public ReactiveProperty<int> MaxHealth = new ReactiveProperty<int>();
     public ReactiveProperty<int> CurrentHealth = new ReactiveProperty<int>();
 
     public ReactiveProperty<int> HeartsCount = new ReactiveProperty<int>();
+
+    private PlayerHealthModel _model; 
 
     public PlayerHealthViewModel(PlayerHealthModel model)
     {
@@ -23,6 +23,12 @@ public class PlayerHealthViewModel : IViewModel
         _model.CurrentHealth.OnChanged += OnModelCurrentHealthChanged;
     }
 
+    public void Dispose()
+    {
+        _model.Health.OnChanged -= OnModelMaxHealthChanged;
+        _model.CurrentHealth.OnChanged -= OnModelCurrentHealthChanged;
+    }
+
     private void OnModelMaxHealthChanged(int newValue)
     {
         MaxHealth.Value = newValue;
@@ -33,11 +39,5 @@ public class PlayerHealthViewModel : IViewModel
     private void OnModelCurrentHealthChanged(int newValue)
     {
         CurrentHealth.Value = newValue;
-    }
-
-    public void Dispose()
-    {
-        _model.Health.OnChanged -= OnModelMaxHealthChanged;
-        _model.CurrentHealth.OnChanged -= OnModelCurrentHealthChanged;
     }
 }
