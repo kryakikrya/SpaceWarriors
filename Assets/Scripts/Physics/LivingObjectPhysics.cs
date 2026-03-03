@@ -91,7 +91,6 @@ public class LivingObjectPhysics
         _velocity = Vector2.ClampMagnitude(_velocity, Mathf.Log(_velocity.magnitude, 2));
     }
 
-
     public void ZeroVelocity()
     {
         _velocity = Vector2.zero;

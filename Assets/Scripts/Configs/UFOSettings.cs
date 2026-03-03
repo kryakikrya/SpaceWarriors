@@ -3,6 +3,7 @@
 public class UFOSettings : IObjectSettings
 {
     public int MaxHealth;
+
     public int Health
     {
         get { return MaxHealth; }

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 public class ScoreRewardModel : IModel
 {
+    public ReactiveProperty<int> Score { get; private set; } = new ReactiveProperty<int>();
+
     private Dictionary<PoolableObjectType, int> _objectToScore;
 
     public ScoreRewardModel(Dictionary<PoolableObjectType, int> objectToScore)
@@ -10,8 +12,6 @@ public class ScoreRewardModel : IModel
 
         Score.Value = 0;
     }
-
-    public ReactiveProperty<int> Score { get; private set; } = new ReactiveProperty<int>();
 
     public void AddScore(PoolableObjectType type)
     {

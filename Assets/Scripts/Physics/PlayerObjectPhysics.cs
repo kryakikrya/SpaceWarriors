@@ -4,7 +4,6 @@ public class PlayerObjectPhysics : LivingObjectPhysics
 
     public PlayerMovementModel Model => _model;
 
-
     public override void Perform()
     {
         base.Perform();

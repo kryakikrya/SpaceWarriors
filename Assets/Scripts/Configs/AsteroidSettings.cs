@@ -2,6 +2,7 @@
 public class AsteroidSettings : IObjectSettings
 {
     public int MaxHealth;
+
     public int Health
     {
         get { return MaxHealth; }
