@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: BulletPhysics
   m_EditorClassIdentifier: 
   BounceReduction: 2
-  MinMovement: 0.03
-  HitOffset: 0.03
-  MaxSpeed: 5
+  MinMovement: 0.01
+  HitOffset: 0.01
+  MaxSpeed: 2
   Mass: 1
-  InertionModifier: 5
+  InertionModifier: 0

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: PlayerPhysics
   m_EditorClassIdentifier: 
   BounceReduction: 2
-  MinMovement: 0.03
-  HitOffset: 0.03
-  MaxSpeed: 5
-  Mass: 1
-  InertionModifier: 5
+  MinMovement: 0.01
+  HitOffset: 0.01
+  MaxSpeed: 3
+  Mass: 10
+  InertionModifier: 3
