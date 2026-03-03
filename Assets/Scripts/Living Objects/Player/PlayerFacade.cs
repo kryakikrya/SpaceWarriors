@@ -46,6 +46,12 @@ public class PlayerFacade : LivingFacade
         _rotator.SetRotationSpeed(settings.RotationSpeed);
     }
 
+    public override void InitializePhysics()
+    {
+        _physics = new PlayerObjectPhysics();
+        _physics.Initialize(GetComponent<Rigidbody2D>(), _physicsConfig);
+    }
+
     public void Shoot()
     {
         _shooter.Shoot(_firePos.transform, transform.rotation.eulerAngles);

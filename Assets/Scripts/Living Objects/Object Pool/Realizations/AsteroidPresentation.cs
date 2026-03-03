@@ -37,7 +37,9 @@ public class AsteroidPresentation : PoolableObject
         for (int i = 0; i < rnd; i++)
         {
             FragmentPresentation fragment = _fragmentPool.GetAvailableObject<FragmentSettings>(_fragment, JsonName, _spawnpoint[i].position, new Vector3 (0, 0, Random.Range(0, 360f)));
-            Vector2 velocity = GetComponent<LivingObjectPhysics>().CurrentVelocity;
+
+            Vector2 velocity = GetComponent<AsteroidsFacade>().Physics.CurrentVelocity;
+
             fragment.GetComponent<AsteroidMovement>().StartMovement(new Vector2 (velocity.x + Random.Range(-_fragmentRotateOffset, _fragmentRotateOffset), velocity.y + Random.Range(-_fragmentRotateOffset, _fragmentRotateOffset)));
         }
 

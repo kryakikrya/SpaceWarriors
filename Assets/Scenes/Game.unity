@@ -1730,7 +1730,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthView: {fileID: 266961219}
   _facade: {fileID: 6381035703448316369}
-  _physics: {fileID: 6381035703448316376}
   _movementView: {fileID: 608760912}
   _laser: {fileID: 6381035703448316377}
   _laserView: {fileID: 608760914}
@@ -4426,17 +4425,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ca04165f9f183f4d86622976122be4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &6381035703448316376 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8033023591881533439, guid: 4c990ee125fa34144bd9482c186ca383, type: 3}
-  m_PrefabInstance: {fileID: 6381035703448316368}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c930ab5dc8bc74081e05ac9669bb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &6381035703448316377 stripped

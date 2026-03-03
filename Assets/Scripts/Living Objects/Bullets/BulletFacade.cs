@@ -32,6 +32,12 @@ public class BulletFacade : PoolableObjectFacade, INeedStartMove
         StartMove();
     }
 
+    public override void InitializePhysics()
+    {
+        _physics = new BulletPhysics();
+        _physics.Initialize(GetComponent<Rigidbody2D>(), _physicsConfig);
+    }
+
     private void FindComponents()
     {
         movement = new BulletMovement();
@@ -50,15 +56,6 @@ public class BulletFacade : PoolableObjectFacade, INeedStartMove
         };
 
         movement.StartMovement(_physics, angle, _settings.Speed);
-    }
-
-    private void Awake()
-    {
-        _physics = GetComponent<LivingObjectPhysics>();
-
-        _damageApplier = new DamageApplier(1);
-
-        DisableInvulnerability();
     }
 
     public override void Death()

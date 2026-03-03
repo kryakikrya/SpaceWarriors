@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zenject;
-using static Zenject.SignalDeclaration;
 
 public class EnemiesCreator : MonoBehaviour
 {

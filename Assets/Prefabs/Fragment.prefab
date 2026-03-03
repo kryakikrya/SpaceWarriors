@@ -189,6 +189,7 @@ MonoBehaviour:
   - Fragment
   - Invulnerability Objects
   _myLayer: Fragment
+  _physicsConfig: {fileID: 11400000, guid: 3c6806ccf9b016642825bd7709ad5d9e, type: 2}
   _movement: {fileID: 5978709660841071698}
 --- !u!114 &5978709660841071698
 MonoBehaviour:
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minSpeed: 0.1
+  _facade: {fileID: 8404322588157701426}
 --- !u!50 &-4012584273819530980
 Rigidbody2D:
   serializedVersion: 4

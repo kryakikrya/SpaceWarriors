@@ -8,6 +8,8 @@ public class LivingFacade : MonoBehaviour
 
     [SerializeField] private string _myLayer;
 
+    [SerializeField] protected PhysicsSO _physicsConfig;
+
     protected Invulnerability _invulnerability;
 
     protected LivingObjectPhysics _physics;
@@ -18,22 +20,33 @@ public class LivingFacade : MonoBehaviour
 
     protected DamageApplier _damageApplier;
 
+    protected PhysicsResolver _resolver;
+
     public LivingObjectPhysics Physics => _physics;
 
     public Health Health => _health;
 
     [Inject]
-    private void Construct(Invulnerability invulnerability, PhysicalLayers layers)
+    private void Construct(Invulnerability invulnerability, PhysicalLayers layers, PhysicsResolver resolver)
     {
         _invulnerability = invulnerability;
         _physicalLayers = layers;
+
+        _resolver = resolver;
     }
 
     private void Awake()
     {
-        _damageApplier = new DamageApplier(1);
+        if (_physics == null)
+        {
+            InitializePhysics();
 
-        DisableInvulnerability();
+            _resolver.AddPhysics(Physics);
+
+            _damageApplier = new DamageApplier(1);
+
+            DisableInvulnerability();
+        }
     }
 
     private void OnEnable()
@@ -41,11 +54,19 @@ public class LivingFacade : MonoBehaviour
         Enable();
     }
 
+    public virtual void InitializePhysics()
+    {
+        _physics = new LivingObjectPhysics();
+        _physics.Initialize(GetComponent<Rigidbody2D>(), _physicsConfig);
+    }
+
     protected virtual void Enable()
     {
         if (_physics == null)
         {
-            _physics = GetComponent<LivingObjectPhysics>();
+            InitializePhysics();
+
+            _resolver.AddPhysics(Physics);
 
             _damageApplier = new DamageApplier(1);
 

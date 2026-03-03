@@ -244,3 +244,4 @@ MonoBehaviour:
   - Fragment
   - Invulnerability Objects
   _myLayer: UFO
+  _physicsConfig: {fileID: 11400000, guid: 025678a7b1dba87419dadbdc7e6f1b1c, type: 2}

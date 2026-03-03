@@ -6,7 +6,7 @@ public class InterfaceBinder : MonoBehaviour
     [SerializeField] private PlayerHealthView _healthView;
     [SerializeField] private PlayerFacade _facade;
 
-    [SerializeField] private  PlayerObjectPhysics _physics;
+    private  PlayerObjectPhysics _physics;
     [SerializeField] private PlayerMovementView _movementView;
 
     [SerializeField] private PlayerLaser _laser;
@@ -34,6 +34,8 @@ public class InterfaceBinder : MonoBehaviour
 
     private void InitializeMovement()
     {
+        _physics = _facade.Physics as PlayerObjectPhysics;
+
         PlayerMovementModel model = _physics.Model;
 
         PlayerMovementViewModel movementViewModel = new PlayerMovementViewModel(model);

@@ -2,24 +2,23 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
-using Zenject;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class LivingObjectPhysics : IDisposable
+public class LivingObjectPhysics
 {
-    [SerializeField] private float _bounceReduction = 2;
+    private float _bounceReduction = 2;
 
     private const int MaxChangesInOneMovement = 3;
 
     private ContactFilter2D _collisionFilter = new ContactFilter2D().NoFilter();
 
-    [SerializeField] private float _minMovement = 0.03f;
+    private float _minMovement = 0.03f;
 
-    [SerializeField] private float _hitOffset = 0.03f;
+    private float _hitOffset = 0.03f;
 
-    [SerializeField] private float _maxSpeed = 5f;
-    [SerializeField] private float _mass = 1f;
-    [SerializeField] private float _inertionModifier = 5f;
+    private float _maxSpeed = 5f;
+    private float _mass = 1f;
+    private float _inertionModifier = 5f;
 
     protected Vector2 _frameMovementVector = Vector2.zero;
     protected Vector2 _velocity = Vector2.zero;
@@ -37,19 +36,24 @@ public class LivingObjectPhysics : IDisposable
 
     public float MaxSpeed => _maxSpeed;
 
-    [Inject]
-    public void Construct(Rigidbody2D rb)
+    public void Initialize(Rigidbody2D rb, PhysicsSO physicsSO)
     {
         _rb = rb;
 
         _myCollider = _rb.GetComponent<Collider2D>();
-        Debug.Log($"LivingObjectPhysics instanceId={GetHashCode()} rb={_rb} col={_myCollider}");
 
         _rb.bodyType = RigidbodyType2D.Kinematic;
 
         _hits = ListPool<RaycastHit2D>.Get();
 
         _rb.useFullKinematicContacts = true;
+
+        _bounceReduction = physicsSO.BounceReduction;
+        _minMovement = physicsSO.MinMovement;
+        _hitOffset = physicsSO.HitOffset;
+        _maxSpeed = physicsSO.MaxSpeed;
+        _mass = physicsSO.Mass;
+        _inertionModifier = physicsSO.InertionModifier;
     }
 
     public void Dispose()
@@ -68,7 +72,6 @@ public class LivingObjectPhysics : IDisposable
 
     public virtual void AddForce(Vector2 direction, float speed)
     {
-        Debug.Log("Add force");
         direction = direction.normalized;
         _frameMovementVector = new Vector2(direction.x * speed / _mass, direction.y * speed / _mass);
     }
@@ -95,7 +98,7 @@ public class LivingObjectPhysics : IDisposable
         _frameMovementVector = Vector2.zero;
     }
 
-    private void FixedUpdate()
+    public void FixedTick()
     {
         Perform();
     }
@@ -118,7 +121,6 @@ public class LivingObjectPhysics : IDisposable
 
     private void CheckOverlap()
     {
-        Debug.Log($"CHECK instanceId={GetHashCode()} rb={_rb} col={_myCollider}");
         int count = _myCollider.OverlapCollider(_collisionFilter, _results);
 
         for (int i = 0; i < count; i++)

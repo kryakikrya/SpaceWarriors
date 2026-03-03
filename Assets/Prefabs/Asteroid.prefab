@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minSpeed: 0.2
+  _facade: {fileID: 2250295458209450221}
 --- !u!114 &2250295458209450221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   - Invulnerability Objects
   - UFO
   _myLayer: Asteroid
+  _physicsConfig: {fileID: 11400000, guid: 72301c94766ff454c8b9e673cddb5da2, type: 2}
   _movement: {fileID: 64040258078118175}
 --- !u!60 &261866817430619608
 PolygonCollider2D:

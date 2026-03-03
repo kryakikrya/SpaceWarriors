@@ -110,6 +110,7 @@ MonoBehaviour:
   _layersToIgnore:
   - Invulnerability Objects
   _myLayer: Default
+  _physicsConfig: {fileID: 11400000, guid: 8c35fb94bfba36e41a02497e9aee8d0d, type: 2}
 --- !u!70 &6427630823899799260
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

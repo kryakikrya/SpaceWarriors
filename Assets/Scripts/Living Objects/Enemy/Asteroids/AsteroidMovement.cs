@@ -4,6 +4,8 @@ public class AsteroidMovement : MonoBehaviour
 {
     [SerializeField] private float _minSpeed = 0.1f;
 
+    [SerializeField] private LivingFacade _facade;
+
     private float _speed = 1f;
 
     private LivingObjectPhysics _physics;
@@ -15,14 +17,9 @@ public class AsteroidMovement : MonoBehaviour
         _speed = speed;
     }
 
-    private void Start()
-    {
-        _physics = GetComponent<LivingObjectPhysics>();
-    }
-
     public void StartMovement(Vector2 direciton)
     {
-        _physics = GetComponent<LivingObjectPhysics>();
+        _physics = _facade.Physics;
 
         _physics.ZeroVelocity();
 
