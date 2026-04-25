@@ -11,6 +11,8 @@ public class UFOPresentation : PoolableObject
 
     public override void Death()
     {
+        base.Death();
+
         gameObject.SetActive(false);
     }
 }
