@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class ScoreRewardModel : IModel
 {
@@ -16,8 +15,6 @@ public class ScoreRewardModel : IModel
 
     public void AddScore(PoolableObjectType type)
     {
-        Debug.Log($"Получаю {_objectToScore[type]}");
-
         Score.Value += _objectToScore[type];
     }
 }

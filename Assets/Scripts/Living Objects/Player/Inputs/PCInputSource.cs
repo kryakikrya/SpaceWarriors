@@ -5,7 +5,7 @@ using Zenject;
 public class PCInputSource : IPlayerInputSource, ITickable
 {
     private const string HorizontalAxisName = "Horizontal";
-    private const string VerticalAxisName = "Vertical";
+    private const string VerticalAxisName = "Horizontal";
 
     public event Action Shooting;
     public event Action Laser;

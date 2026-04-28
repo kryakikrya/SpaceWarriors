@@ -40,37 +40,28 @@ public class FirebaseDataSaver : IInitializable, IDisposable
             Debug.Log("Auth error");
         }
 
-        var reference = FirebaseDatabase.DefaultInstance.GetReference($"users/{PlayerPrefs.GetString("CurrentUser")}");
+        var reference = FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}");
         reference.ValueChanged += OnUsersDataChanged;
     }
 
     public void ChangeLastScore(int score)
     {
-        SaveCurrentSession(score);
+        _data.Score = score;
+
+        SaveCurrentSession();
     }
 
-    public void SaveCurrentSession(int score)
+    public void SaveCurrentSession()
     {
-        if (score <= _data.Score)
-        {
-            return;
-        }
-
-        _data.Score = score;
         var jsonNewUser = JsonConvert.SerializeObject(_data);
 
-        FirebaseDatabase.DefaultInstance.GetReference($"users/{PlayerPrefs.GetString("CurrentUser")}")
-            .SetRawJsonValueAsync(jsonNewUser)
-            .ContinueWithOnMainThread(task =>
+        FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}").SetRawJsonValueAsync(jsonNewUser).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
             {
-                if (task.IsFaulted || task.IsCanceled)
-                {
-                    Debug.Log("Error");
-                    return;
-                }
-
-                Debug.Log($"New high score saved: {_data.Score}");
-            });
+                Debug.Log("Error");
+            }
+        });
     }
 
     private void OnUsersDataChanged(object sender, ValueChangedEventArgs args)
@@ -85,14 +76,12 @@ public class FirebaseDataSaver : IInitializable, IDisposable
 
     private void CheckUser()
     {
-        string currentUserKey = PlayerPrefs.GetString("CurrentUser");
-
         if (FirebaseAuth.DefaultInstance.CurrentUser != null)
         {
             _auth = FirebaseAuth.DefaultInstance;
             _user = _auth.CurrentUser;
 
-            var reference = FirebaseDatabase.DefaultInstance.GetReference($"users/{PlayerPrefs.GetString("CurrentUser")}");
+            var reference = FirebaseDatabase.DefaultInstance.GetReference($"users/{_user.UserId}");
             reference.ValueChanged += OnUsersDataChanged;
         }
         else
@@ -108,7 +97,7 @@ public class FirebaseDataSaver : IInitializable, IDisposable
                 _user = task.Result.User;
 
                 var reference = FirebaseDatabase.DefaultInstance
-                    .GetReference($"users/{PlayerPrefs.GetString("CurrentUser")}");
+                    .GetReference($"users/{_user.UserId}");
 
                 reference.ValueChanged += OnUsersDataChanged;
             });
@@ -127,7 +116,7 @@ public class FirebaseDataSaver : IInitializable, IDisposable
         {
             _data = new SessionData();
 
-            SaveCurrentSession(0);
+            SaveCurrentSession();
         }
     }
 }

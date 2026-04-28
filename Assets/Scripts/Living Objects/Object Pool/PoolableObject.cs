@@ -31,9 +31,4 @@ public abstract class PoolableObject : MonoBehaviour
     {
         _rewardModel.AddScore(Type);
     }
-
-    private void OnDestroy()
-    {
-        _health.OnObjectDeath -= Death;
-    }
 }
