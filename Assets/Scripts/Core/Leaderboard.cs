@@ -47,25 +47,23 @@ public class Leaderboard : MonoBehaviour
 
                 _statusText.text += $"\nLeaders count = {leaders.Count}";
 
-                if (_items.Count == 0)
+                for (int i = transform.childCount - 1; i >= 0; i--)
                 {
-                    for (int i = 0; i < leaders.Count; i++)
+                    if (transform.GetChild(i).gameObject.TryGetComponent(out LeaderboardItem _))
                     {
-                        LeaderboardItem item = Instantiate(_itemPrefab, transform);
-
-                        item.transform.SetSiblingIndex(0);
-
-                        item.Change(leaders[i].Email, leaders[i].Score.ToString());
-
-                        _items.Add(item);
+                        Destroy(transform.GetChild(i).gameObject);
                     }
                 }
-                else
+
+                for (int i = 0; i < leaders.Count; i++)
                 {
-                    for (int i = 0; i < _items.Count; i++)
-                    {
-                        _items[i].Change(leaders[i].Email, leaders[i].Score.ToString());
-                    }
+                    LeaderboardItem item = Instantiate(_itemPrefab, transform);
+
+                    item.transform.SetSiblingIndex(0);
+
+                    item.Change(leaders[i].Email, leaders[i].Score.ToString());
+
+                    _items.Add(item);
                 }
             });
     }
